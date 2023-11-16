@@ -49,9 +49,3 @@ Welcome to the MedHub Web app repository! MedHub is a Flutter-based web applicat
 5. **License**:
 
     - This project is licensed under the [MIT License](LICENSE).
-
-## Delivery Date
-
-The web version of MedHub is scheduled for delivery on January 6, 2024.
-
-Feel free to explore and contribute to enhancing the MedHub Web app!
