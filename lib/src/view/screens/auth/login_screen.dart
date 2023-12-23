@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
+import '../../../../core/assets/app_animations.dart';
 import '../../../../core/assets/app_icons.dart';
 import '../../../../core/assets/app_images.dart';
 import '../../../../core/constants/app_colors.dart';
@@ -12,7 +13,6 @@ import '../../helpers/show_snack_bar.dart';
 import '../../widgets/custome_button.dart';
 import '../../widgets/custome_text_field.dart';
 import '../navigation bar/home_screen.dart';
-import 'register_screen.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
@@ -55,10 +55,6 @@ class LoginScreen extends StatelessWidget {
       }
     }
 
-    void registerUserPage() {
-      Get.off(() => RegisterScreen());
-    }
-
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoading) {
@@ -74,129 +70,124 @@ class LoginScreen extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                  AppImages.startWallpaper), // Replace with your image asset
-              fit: BoxFit.cover,
+        body: Row(
+          children: [
+            Flexible(
+              flex: 2,
+              child: Center(
+                child: Lottie.asset(AppAnimations.startAnimation),
+              ),
             ),
-          ),
-          child: SafeArea(
-            child: Center(
-              child: SingleChildScrollView(
-                child: SizedBox(
-                  width: 360,
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Logo
-                        const Icon(
-                          AppIcons.lock,
-                          size: 100,
-                          color: AppColors.primaryColor,
-                        ),
-
-                        // Welcome message
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        Text(
-                          "welcomeMessage".tr,
-                          style: const TextStyle(
-                              fontSize: 24,
-                              color: AppColors.textColor,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "enterCredentials".tr,
-                          style: const TextStyle(
-                              fontSize: 18,
-                              color: AppColors.secondaryTextColor,
-                              fontWeight: FontWeight.bold),
-                        ),
-
-                        // user email textfield
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        CustomeTextField(
-                          validator: userNumberValidator,
-                          obscureText: false,
-                          hintText: "userNumber".tr,
-                          onChanged: (text) {
-                            phoneNumber = text;
-                            formKey.currentState!.validate();
-                          },
-                          keyboardType: TextInputType.phone,
-                          prefixIcon: AppIcons.phone,
-                        ),
-
-                        // password textfield
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomeTextField(
-                          validator: passwordValidator,
-                          obscureText: true,
-                          hintText: "password".tr,
-                          onChanged: (text) {
-                            password = text;
-                            formKey.currentState!.validate();
-                          },
-                          keyboardType: TextInputType.visiblePassword,
-                          prefixIcon: AppIcons.password,
-                        ),
-
-                        // sign in button
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        CustomeButton(
-                          title: "signIn".tr,
-                          onTap: signInUser,
-                          height: 70.h,
-                          width: 340.w,
-                        ),
-
-                        // not a member> register now
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "notAMember".tr,
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textColor),
-                            ),
-                            GestureDetector(
-                              onTap: registerUserPage,
-                              child: Text(
-                                "register".tr,
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.secondaryColor),
+            const VerticalDivider(
+              thickness: 3,
+              width: 3,
+            ),
+            Flexible(
+              flex: 1,
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AppImages
+                        .startWallpaper), // Replace with your image asset
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: SafeArea(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: SizedBox(
+                        width: 360,
+                        child: Form(
+                          key: formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // Logo
+                              const Icon(
+                                AppIcons.lock,
+                                size: 100,
+                                color: AppColors.primaryColor,
                               ),
-                            ),
-                          ],
-                        )
-                      ],
+
+                              // Welcome message
+                              const SizedBox(
+                                height: 50,
+                              ),
+                              Text(
+                                "welcomeMessage".tr,
+                                style: const TextStyle(
+                                    fontSize: 24,
+                                    color: AppColors.textColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "enterCredentials".tr,
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    color: AppColors.secondaryTextColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+
+                              // user email textfield
+                              const SizedBox(
+                                height: 60,
+                              ),
+                              CustomeTextField(
+                                validator: userNumberValidator,
+                                obscureText: false,
+                                hintText: "userNumber".tr,
+                                onChanged: (text) {
+                                  phoneNumber = text;
+                                  formKey.currentState!.validate();
+                                },
+                                keyboardType: TextInputType.phone,
+                                prefixIcon: AppIcons.phone,
+                              ),
+
+                              // password textfield
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              CustomeTextField(
+                                validator: passwordValidator,
+                                obscureText: true,
+                                hintText: "password".tr,
+                                onChanged: (text) {
+                                  password = text;
+                                  formKey.currentState!.validate();
+                                },
+                                keyboardType: TextInputType.visiblePassword,
+                                prefixIcon: AppIcons.password,
+                              ),
+
+                              // sign in button
+                              const SizedBox(
+                                height: 50,
+                              ),
+                              CustomeButton(
+                                title: "signIn".tr,
+                                onTap: signInUser,
+                                height: 60,
+                                width: 360,
+                              ),
+
+                              // not a member> register now
+                              const SizedBox(
+                                height: 30,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
