@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as get_lib;
 import 'package:logger/logger.dart';
+import 'package:pharmacy_warehouse_store_web/src/routes/app_pages.dart';
 
 import 'core/constants/app_general_constants.dart';
 import 'core/constants/app_theme.dart';
 import 'src/Cubits/Auth/Login/login_cubit.dart';
 import 'src/Cubits/Auth/Logout/logout_cubit.dart';
-import 'src/Cubits/Auth/Register/register_cubit.dart';
 import 'src/Cubits/BottomNavBar/bottom_nav_bar_cubit.dart';
 import 'src/Cubits/Cart/cart_cubit.dart';
 import 'src/Cubits/Category/category_cubit.dart';
@@ -28,88 +27,63 @@ void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // await FirebaseApi().initNotifications();
-  
-
   get_lib.Get.put(AppLocalController());
   Bloc.observer = SimpleBlocObserver();
-
-  return runApp(
-    ScreenUtilInit(
-      designSize: const Size(390, 844),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      useInheritedMediaQuery: true,
-      rebuildFactor: (old, data) => false,
-      builder: (context, widget) {
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => ProductsCubit(),
-            ),
-            BlocProvider(
-              create: (context) => BottomNavBarCubit(),
-            ),
-            BlocProvider(
-              create: (context) => FavouriteCubit(),
-            ),
-            BlocProvider(
-              create: (context) => CartCubit(),
-            ),
-            BlocProvider(
-              create: (context) => CategoryCubit(),
-            ),
-            BlocProvider(
-              create: (context) => HomeCubit(),
-            ),
-            BlocProvider(
-              create: (context) => LoginCubit(),
-            ),
-            BlocProvider(
-              create: (context) => RegisterCubit(),
-            ),
-            BlocProvider(
-              create: (context) => LogoutCubit(),
-            ),
-            BlocProvider(
-              create: (context) => OrdersCubit(),
-            ),
-            BlocProvider(
-              create: (context) => UserCubit(),
-            ),
-            BlocProvider(
-              create: (context) => StatisticsCubit(),
-            ),
-          ],
-          child: get_lib.GetMaterialApp(
-            title: kAppTitle,
-            debugShowCheckedModeBanner: false,
-            theme: appTheme,
-            defaultTransition: get_lib.Transition.native,
-            transitionDuration: const Duration(seconds: 1),
-            translations: AppLocale(),
-            locale: const Locale('en'),
-            home: const SplashScreen(),
-          ),
-        );
-      },
-    ),
-  );
+  return runApp(const MedHubWeb());
 }
 
-// class PhrarmacyWarehouseStoreMobile extends StatelessWidget {
-//   const PhrarmacyWarehouseStoreMobile({super.key});
+class MedHubWeb extends StatelessWidget {
+  const MedHubWeb({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     Get.put(AppLocalController());
-//     return GetMaterialApp(
-//       title: kAppTitle,
-//       debugShowCheckedModeBanner: false,
-//       theme: appTheme,
-//       defaultTransition: Transition.fadeIn,
-//       translations: AppLocale(),
-//       locale: Get.deviceLocale,
-//       home: const SplashScreen(),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProductsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => BottomNavBarCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FavouriteCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CartCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CategoryCubit(),
+        ),
+        BlocProvider(
+          create: (context) => HomeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LoginCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LogoutCubit(),
+        ),
+        BlocProvider(
+          create: (context) => OrdersCubit(),
+        ),
+        BlocProvider(
+          create: (context) => UserCubit(),
+        ),
+        BlocProvider(
+          create: (context) => StatisticsCubit(),
+        ),
+      ],
+      child: get_lib.GetMaterialApp(
+        title: kAppTitle,
+        debugShowCheckedModeBanner: false,
+        theme: appTheme,
+        defaultTransition: get_lib.Transition.native,
+        transitionDuration: const Duration(seconds: 1),
+        translations: AppLocale(),
+        locale: const Locale('en'),
+        routes: AppPages.routes,
+        home: const SplashScreen(),
+      ),
+    );
+  }
+}
