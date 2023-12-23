@@ -36,9 +36,15 @@ void showSelectLangDialog() {
               ),
             ),
             const SizedBox(height: 24.0),
-            buildLanguageRadio('en', "english".tr),
+            SizedBox(
+              width: 200,
+              child: buildLanguageRadio('en', "english".tr),
+            ),
             const SizedBox(height: 16.0),
-            buildLanguageRadio('ar', "arabic".tr),
+            SizedBox(
+              width: 200,
+              child: buildLanguageRadio('ar', "arabic".tr),
+            ),
             const SizedBox(height: 16.0),
           ],
         ),
