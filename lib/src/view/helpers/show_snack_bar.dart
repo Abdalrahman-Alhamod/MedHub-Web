@@ -36,6 +36,7 @@ void showSnackBar(
   Get.snackbar(
     '',
     '',
+    maxWidth: 500,
     backgroundColor: backgroundColor,
     icon: Icon(
       icon,
