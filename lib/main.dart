@@ -28,6 +28,7 @@ void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // await FirebaseApi().initNotifications();
+  
 
   get_lib.Get.put(AppLocalController());
   Bloc.observer = SimpleBlocObserver();
