@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +41,7 @@ class ProductDetailsScreen extends StatelessWidget {
           child: ListView(
             children: [
               SizedBox(
-                height: 280.h,
+                height: 280,
                 child: Stack(
                   children: [
                     // Container - product background
@@ -51,18 +50,18 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
 
                     Positioned(
-                        top: 15.h,
+                        top: 15,
                         left: 0,
                         right: 0,
                         child: _ProductImage(
                           product: product,
                         )),
                     // Back button
-                    Positioned(
-                      top: 24.h,
-                      left: 24.w,
-                      right: 24.w,
-                      child: const _AppBar(),
+                    const Positioned(
+                      top: 24,
+                      left: 24,
+                      right: 24,
+                      child: _AppBar(),
                     ),
                   ],
                 ),
@@ -74,10 +73,14 @@ class ProductDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      20.verticalSpace,
+                      const SizedBox(
+                        height: 20,
+                      ),
                       SizedBox(
                           width: 230, child: _ProductName(product: product)),
-                      5.verticalSpace,
+                      const SizedBox(
+                        height: 5,
+                      ),
                       SizedBox(
                           width: 230,
                           child: _ProductScientificName(product: product)),
@@ -86,21 +89,25 @@ class ProductDetailsScreen extends StatelessWidget {
                   Expanded(child: _ProductPrice(product: product)),
                 ],
               ),
-              10.verticalSpace,
+              const SizedBox(
+                height: 10,
+              ),
               SizedBox(
                   height: 100, child: _ProductDescription(product: product)),
-              10.verticalSpace,
+              const SizedBox(
+                height: 10,
+              ),
               //// Product Details Cards
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: GridView(
                   shrinkWrap: true,
                   primary: false,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 8.w,
-                    mainAxisSpacing: 8.h,
-                    mainAxisExtent: 100.h,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    mainAxisExtent: 100,
                   ),
                   children: [
                     CustomeCard(
@@ -129,16 +136,18 @@ class ProductDetailsScreen extends StatelessWidget {
                     CustomeCard(
                       title: product.category.name,
                       subtitle: "category".tr,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.category,
                         color: Colors.orange,
-                        size: 30.h,
+                        size: 30,
                       ), // Example color
                     ),
                   ],
                 ),
               ),
-              10.verticalSpace,
+              const SizedBox(
+                height: 10,
+              ),
               _Buttons(
                 product: product,
               )
@@ -158,7 +167,7 @@ class _Buttons extends StatelessWidget {
     var theme = context.theme;
     bool isFav = product.isFavorite;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -173,8 +182,8 @@ class _Buttons extends StatelessWidget {
                 isScrollControlled: true,
               );
             },
-            width: 260.w,
-            height: 70.h,
+            width: 260,
+            height: 70,
             isEnabled: product.inStock != 0,
           ),
           Container(
@@ -205,7 +214,7 @@ class _Buttons extends StatelessWidget {
                 icon: Icon(
                   Icons.favorite,
                   color: isFav ? Colors.red : Colors.grey,
-                  size: 70.h - 15,
+                  size: 60,
                 ),
               ),
             ),
@@ -429,7 +438,7 @@ class _ProductDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = context.theme;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: AutoSizeText(
         product.description,
         style: theme.textTheme.bodyLarge,
@@ -450,7 +459,7 @@ class _ProductPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = context.theme;
     return Padding(
-      padding: EdgeInsets.only(right: 25.w, left: 25.w, top: 20.h),
+      padding: const EdgeInsets.only(right: 25, left: 25, top: 20),
       child: AutoSizeText(
         "${product.price} ${"SP".tr}",
         style: theme.textTheme.displayLarge!.copyWith(
@@ -472,7 +481,7 @@ class _ProductScientificName extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = context.theme;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: AutoSizeText(
         product.scientificName,
         style: theme.textTheme.displayMedium,
@@ -493,7 +502,7 @@ class _ProductName extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = context.theme;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: AutoSizeText(
         product.name,
         style: theme.textTheme.displaySmall,
@@ -512,8 +521,8 @@ class _ProductImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.network(
       product.image,
-      width: 250.w,
-      height: 250.h,
+      width: 250,
+      height: 250,
     );
   }
 }

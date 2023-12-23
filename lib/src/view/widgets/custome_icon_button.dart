@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CustomIconButton extends StatelessWidget {
@@ -23,8 +22,8 @@ class CustomIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = context.theme;
     return SizedBox(
-      width: width ?? 44.w,
-      height: height ?? 44.h,
+      width: width ?? 44,
+      height: height ?? 44,
       child: Material(
         color: backgroundColor ?? theme.colorScheme.background,
         shape: borderColor == null

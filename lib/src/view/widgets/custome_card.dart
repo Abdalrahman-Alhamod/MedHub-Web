@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constants/app_colors.dart';
@@ -22,16 +21,18 @@ class CustomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Container(
-      padding: EdgeInsets.fromLTRB(16.w, 12.h, 10.w, 12.h),
+      padding: const EdgeInsets.fromLTRB(16, 12, 10, 12),
       decoration: BoxDecoration(
         color: theme.scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: theme.dividerColor),
       ),
       child: Row(
         children: [
           icon,
-          8.horizontalSpace,
+          const SizedBox(
+            height: 10,
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +49,9 @@ class CustomeCard extends StatelessWidget {
                   maxLines: 2,
                 ),
               ),
-              2.verticalSpace,
+              const SizedBox(
+                height: 5,
+              ),
               SizedBox(
                   width: 100,
                   child: AutoSizeText(
