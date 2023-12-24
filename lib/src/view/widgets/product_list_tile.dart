@@ -94,69 +94,65 @@ class ProductListTile extends StatelessWidget {
                   ),
                 ],
               ),
-              const Spacer(
-                flex: 1,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  isCartProduct
-                      ? Column(
-                          children: [
-                            SizedBox(
-                              width: 130,
-                              child: CartQuantityCounter(product: product),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                          ],
-                        )
-                      : quantity != 0
-                          ? Column(
-                              children: [
-                                SizedBox(
-                                  width: 130,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        '$quantity ${"pc".tr}',
-                                        style: theme.textTheme.titleLarge!
-                                            .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: theme.primaryColor,
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    isCartProduct
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                width: 130,
+                                child: CartQuantityCounter(product: product),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                            ],
+                          )
+                        : quantity != 0
+                            ? Column(
+                                children: [
+                                  SizedBox(
+                                    width: 130,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          '$quantity ${"pc".tr}',
+                                          style: theme.textTheme.titleLarge!
+                                              .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: theme.primaryColor,
+                                          ),
+                                          maxLines: 1,
                                         ),
-                                        maxLines: 1,
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                              ],
-                            )
-                          : Container(),
-                  SizedBox(
-                    width: 130,
-                    child: AutoSizeText(
-                      "${product.price.toString()} ${"SP".tr}",
-                      style: theme.textTheme.titleLarge!.copyWith(
-                        color: const Color.fromARGB(255, 23, 171, 28),
-                        overflow: TextOverflow.ellipsis,
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
+                    SizedBox(
+                      width: 130,
+                      child: AutoSizeText(
+                        "${product.price.toString()} ${"SP".tr}",
+                        style: theme.textTheme.titleLarge!.copyWith(
+                          color: const Color.fromARGB(255, 23, 171, 28),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        minFontSize: 16,
                       ),
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      minFontSize: 8,
                     ),
-                  ),
-                ],
-              ),
-              const Spacer(
-                flex: 1,
+                  ],
+                ),
               ),
             ],
           )
