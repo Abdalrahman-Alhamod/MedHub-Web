@@ -1,1 +1,1 @@
-const kAppTitle = 'Pharmacy Warehouse Store Mobile';
+const kAppTitle = 'MedHub';
