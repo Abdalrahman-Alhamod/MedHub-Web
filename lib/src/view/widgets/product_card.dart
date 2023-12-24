@@ -21,8 +21,8 @@ class ProductCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            height: 180,
-            width: 180,
+            height: 230,
+            width: 230,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(8), topLeft: Radius.circular(8)),
@@ -36,8 +36,8 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Container(
-            height: 70,
-            width: 180,
+            height: 100,
+            width: 230,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                   bottomRight: Radius.circular(8),
@@ -51,8 +51,8 @@ class ProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(
-                      width: 90,
+                    Flexible(
+                      flex: 1,
                       child: AutoSizeText(
                         product.name,
                         style: theme.textTheme.bodyLarge!.copyWith(
@@ -63,8 +63,8 @@ class ProductCard extends StatelessWidget {
                         minFontSize: 6,
                       ),
                     ),
-                    SizedBox(
-                      width: 90,
+                    Flexible(
+                      flex: 1,
                       child: AutoSizeText(
                         product.scientificName,
                         style: theme.textTheme.bodyMedium!.copyWith(
@@ -77,8 +77,8 @@ class ProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  width: 70,
+                Flexible(
+                  flex: 1,
                   child: AutoSizeText(
                     "${product.price.toString()} ${"SP".tr}",
                     style: theme.textTheme.bodyMedium!.copyWith(
