@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -87,24 +88,29 @@ class _SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomeTextField(
-      obscureText: false,
-      hintText: "searchFor".tr,
-      onChanged: (value) {
-        BlocProvider.of<ProductsCubit>(context).searchBarContent = value;
-      },
-      onSubmit: (value) {
-        BlocProvider.of<BottomNavBarCubit>(context).navigate(index: 1);
-        BlocProvider.of<ProductsCubit>(context).search();
-      },
-      validator: null,
-      keyboardType: TextInputType.text,
-      prefixIcon: Icons.search,
-      onTap: () {
-        BlocProvider.of<BottomNavBarCubit>(context).navigate(index: 1);
-        BlocProvider.of<ProductsCubit>(context).search();
-      },
-      isSearchBar: true,
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 500),
+        child: CustomeTextField(
+          obscureText: false,
+          hintText: "searchFor".tr,
+          onChanged: (value) {
+            BlocProvider.of<ProductsCubit>(context).searchBarContent = value;
+          },
+          onSubmit: (value) {
+            BlocProvider.of<BottomNavBarCubit>(context).navigate(index: 1);
+            BlocProvider.of<ProductsCubit>(context).search();
+          },
+          validator: null,
+          keyboardType: TextInputType.text,
+          prefixIcon: Icons.search,
+          onTap: () {
+            BlocProvider.of<BottomNavBarCubit>(context).navigate(index: 1);
+            BlocProvider.of<ProductsCubit>(context).search();
+          },
+          isSearchBar: true,
+        ),
+      ),
     );
   }
 }
@@ -116,7 +122,7 @@ class _ProductsCardsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
+      height: 330,
       width: double.infinity,
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
@@ -168,17 +174,25 @@ class _ProductsCardsViewSuccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: products.length,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: ProductCard(
-            product: products[index],
-          ),
-        );
-      },
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(
+        dragDevices: {
+          PointerDeviceKind.touch,
+          PointerDeviceKind.mouse,
+        },
+      ),
+      child: ListView.builder(
+        itemCount: products.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: ProductCard(
+              product: products[index],
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -232,38 +246,46 @@ class _CategoriesCardsViewSuccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = context.theme;
-    return ListView.builder(
-      itemCount: categories.length,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            BlocProvider.of<BottomNavBarCubit>(context).navigate(index: 1);
-            BlocProvider.of<ProductsCubit>(context).choosenCategory =
-                categories[index];
-          },
-          child: Container(
-            margin: const EdgeInsets.only(right: 8),
-            decoration: BoxDecoration(
-              color: Colors.blueGrey,
-              borderRadius: BorderRadius.circular(8),
-              image: const DecorationImage(
-                  image: AssetImage(AppImages.categoryWallpaper),
-                  fit: BoxFit.cover),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Center(
-                child: Text(
-                  categories[index].name,
-                  style: theme.textTheme.titleMedium!
-                      .copyWith(color: const Color.fromARGB(255, 34, 77, 112)),
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(
+        dragDevices: {
+          PointerDeviceKind.touch,
+          PointerDeviceKind.mouse,
+        },
+      ),
+      child: ListView.builder(
+        itemCount: categories.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              BlocProvider.of<BottomNavBarCubit>(context).navigate(index: 1);
+              BlocProvider.of<ProductsCubit>(context).choosenCategory =
+                  categories[index];
+            },
+            child: Container(
+              margin: const EdgeInsets.only(right: 8),
+              decoration: BoxDecoration(
+                color: Colors.blueGrey,
+                borderRadius: BorderRadius.circular(8),
+                image: const DecorationImage(
+                    image: AssetImage(AppImages.categoryWallpaper),
+                    fit: BoxFit.cover),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Center(
+                  child: Text(
+                    categories[index].name,
+                    style: theme.textTheme.titleMedium!.copyWith(
+                        color: const Color.fromARGB(255, 34, 77, 112)),
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -276,21 +298,29 @@ class _AdsView extends StatelessWidget {
     return SizedBox(
       height: 150,
       width: double.infinity,
-      child: ListView.builder(
-        itemCount: AppImages.ads.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.only(right: 8),
-            width: 220,
-            decoration: BoxDecoration(
-              color: Colors.blueGrey,
-              borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                  image: AssetImage(AppImages.ads[index]), fit: BoxFit.cover),
-            ),
-          );
-        },
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(
+          dragDevices: {
+            PointerDeviceKind.touch,
+            PointerDeviceKind.mouse,
+          },
+        ),
+        child: ListView.builder(
+          itemCount: AppImages.ads.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: const EdgeInsets.only(right: 8),
+              width: 220,
+              decoration: BoxDecoration(
+                color: Colors.blueGrey,
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                    image: AssetImage(AppImages.ads[index]), fit: BoxFit.cover),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
