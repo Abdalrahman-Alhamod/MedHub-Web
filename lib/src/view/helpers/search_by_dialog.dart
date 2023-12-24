@@ -38,15 +38,25 @@ void showSearchByDialog() {
                 ),
               ),
               const SizedBox(height: 24.0),
-              buildLanguageRadio(SearchConstraints.name, "name".tr),
+              SizedBox(
+                  width: 250,
+                  child: buildLanguageRadio(SearchConstraints.name, "name".tr)),
               const SizedBox(height: 16.0),
-              buildLanguageRadio(
-                  SearchConstraints.scientificName, "scientificName".tr),
+              SizedBox(
+                  width: 250,
+                  child: buildLanguageRadio(
+                      SearchConstraints.scientificName, "scientificName".tr)),
               const SizedBox(height: 16.0),
-              buildLanguageRadio(
-                  SearchConstraints.description, "description".tr),
+              SizedBox(
+                width: 250,
+                child: buildLanguageRadio(
+                    SearchConstraints.description, "description".tr),
+              ),
               const SizedBox(height: 16.0),
-              buildLanguageRadio(SearchConstraints.brand, "brand".tr),
+              SizedBox(
+                  width: 250,
+                  child:
+                      buildLanguageRadio(SearchConstraints.brand, "brand".tr)),
               const SizedBox(height: 16.0),
             ],
           ),
