@@ -263,22 +263,25 @@ class _CategoriesCardsViewSuccess extends StatelessWidget {
               BlocProvider.of<ProductsCubit>(context).choosenCategory =
                   categories[index];
             },
-            child: Container(
-              margin: const EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                color: Colors.blueGrey,
-                borderRadius: BorderRadius.circular(8),
-                image: const DecorationImage(
-                    image: AssetImage(AppImages.categoryWallpaper),
-                    fit: BoxFit.cover),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Center(
-                  child: Text(
-                    categories[index].name,
-                    style: theme.textTheme.titleMedium!.copyWith(
-                        color: const Color.fromARGB(255, 34, 77, 112)),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: Container(
+                margin: const EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                  color: Colors.blueGrey,
+                  borderRadius: BorderRadius.circular(8),
+                  image: const DecorationImage(
+                      image: AssetImage(AppImages.categoryWallpaper),
+                      fit: BoxFit.cover),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Center(
+                    child: Text(
+                      categories[index].name,
+                      style: theme.textTheme.titleMedium!.copyWith(
+                          color: const Color.fromARGB(255, 34, 77, 112)),
+                    ),
                   ),
                 ),
               ),
