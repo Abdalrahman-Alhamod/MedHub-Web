@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_warehouse_store_web/core/assets/app_images.dart';
+import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20bar/add_product_screen.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/widgets/show_image.dart';
 
 import '../../../../core/constants/app_colors.dart';
@@ -20,12 +21,13 @@ import 'search_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  static const List<Widget> screen = [
-    ProductsListScreen(),
-    SearchScreen(),
-    OrdersScreen(),
-    FavouriteScreen(),
-    CartScreen(),
+  static List<Widget> screen = [
+    const ProductsListScreen(),
+    const SearchScreen(),
+    const AddProductScreen(),
+    const OrdersScreen(),
+    const FavouriteScreen(),
+    const CartScreen(),
   ];
 
   @override
@@ -52,7 +54,7 @@ class HomeScreenState extends State<HomeScreen> {
         builder: (context, state) {
           return Row(
             children: [
-              const NavRailExample(),
+              const CustomeNaveRail(),
               Expanded(
                 child: Scaffold(
                   body: SizedBox.expand(
@@ -70,14 +72,14 @@ class HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class NavRailExample extends StatefulWidget {
-  const NavRailExample({super.key});
+class CustomeNaveRail extends StatefulWidget {
+  const CustomeNaveRail({super.key});
 
   @override
-  State<NavRailExample> createState() => _NavRailExampleState();
+  State<CustomeNaveRail> createState() => _CustomeNaveRailState();
 }
 
-class _NavRailExampleState extends State<NavRailExample> {
+class _CustomeNaveRailState extends State<CustomeNaveRail> {
   @override
   Widget build(BuildContext context) {
     int selectedIndex = BlocProvider.of<BottomNavBarCubit>(context).index;
@@ -116,7 +118,7 @@ class _NavRailExampleState extends State<NavRailExample> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-              onPressed: () {
+              onPressed: () async {
                 showSelectLangDialog();
               },
               icon: const Icon(
@@ -192,7 +194,7 @@ class _NavRailExampleState extends State<NavRailExample> {
             color: AppColors.primaryColor,
           ),
           label: Text(
-            "orders".tr,
+            "Add".tr,
             style: theme.textTheme.titleLarge,
           ),
           padding: const EdgeInsets.all(padding),
