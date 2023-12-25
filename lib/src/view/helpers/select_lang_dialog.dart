@@ -64,9 +64,10 @@ Widget buildLanguageRadio(String locale, String label) {
     ),
     value: isSelected,
     groupValue: true,
-    onChanged: (value) {
+    onChanged: (value) async {
+      Get.until((route) => !Get.isDialogOpen!);
+      await Future.delayed(const Duration(milliseconds: 400));
       AppLocalController().changeLang(langCode: locale);
-      Get.back();
     },
     fillColor: MaterialStateProperty.all(Colors.lightBlueAccent),
   );
