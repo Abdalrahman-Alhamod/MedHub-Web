@@ -1,3 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,9 @@ import '../../../core/constants/app_colors.dart';
 import '../../Cubits/Orders/orders_cubit.dart';
 import '../../model/order.dart';
 import '../helpers/show_snack_bar.dart';
+import '../widgets/order_spec_text.dart';
+import '../widgets/order_status_text.dart';
+import '../widgets/order_type_card.dart';
 import '../widgets/product_list_tile.dart';
 import '../widgets/show_image.dart';
 import 'navigation bar/home_screen.dart';
@@ -22,7 +27,7 @@ class OrderDetailsScreen extends StatelessWidget {
         title: Text(
           "orderDetails".tr,
           style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 24, color: Colors.white),
+              fontWeight: FontWeight.bold, fontSize: 32, color: Colors.white),
         ),
         backgroundColor: Colors.lightBlueAccent,
         centerTitle: true,
@@ -43,7 +48,7 @@ class OrderDetailsScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is OrderFetchSuccess) {
             Order order = state.order;
-            return _OrderProductsSuccessView(order: order);
+            return _OrderSuccessView(order: order);
           } else if (state is OrdersFetchLoading) {
             return const Center(
               child: CircularProgressIndicator(
@@ -78,18 +83,98 @@ class OrderDetailsScreen extends StatelessWidget {
   }
 }
 
-class _OrderProductsSuccessView extends StatelessWidget {
-  const _OrderProductsSuccessView({required this.order});
+class _OrderSuccessView extends StatelessWidget {
+  const _OrderSuccessView({required this.order});
   final Order order;
   @override
   Widget build(BuildContext context) {
+    var theme = context.theme;
     return Padding(
       padding: const EdgeInsets.only(top: 8, right: 16, left: 16),
-      child: ListView.builder(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 30,
+          ),
+          Flexible(
+            flex: 3,
+            child: _OrderDetails(order: order),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Flexible(
+            flex: 2,
+            child: Row(
+              children: [
+                Text(
+                  "Change Order Status".tr,
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 24),
+                ),
+                Expanded(
+                  child: _OrdersStatusCardsView(
+                    order: order,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Flexible(
+            flex: 2,
+            child: Row(
+              children: [
+                Text(
+                  "Change Payment Statues".tr,
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 24),
+                ),
+                Expanded(
+                  child: _OrdersPaymentCardsView(
+                    order: order,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Flexible(
+            flex: 8,
+            child: _OrderProducts(order: order),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _OrderProducts extends StatelessWidget {
+  const _OrderProducts({
+    required this.order,
+  });
+
+  final Order order;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(
+        dragDevices: {
+          PointerDeviceKind.touch,
+          PointerDeviceKind.mouse,
+        },
+      ),
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 550,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          childAspectRatio: 3, // Adjust this value based on your design
+        ),
         itemCount: order.orderedProducts.length,
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        //physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
@@ -99,6 +184,326 @@ class _OrderProductsSuccessView extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _OrderDetails extends StatelessWidget {
+  const _OrderDetails({
+    required this.order,
+  });
+
+  final Order order;
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = context.theme;
+    return Row(
+      children: [
+        Flexible(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Flexible(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    OrderSpecText(
+                      content: 'orderID'.tr,
+                      imagePath: AppImages.orderID,
+                    ),
+                    OrderSpecText(
+                      content: 'totalBill'.tr,
+                      imagePath: AppImages.orderBill,
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          "#${order.id}",
+                          style: theme.textTheme.titleLarge,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 140,
+                      height: 40,
+                      child: Center(
+                        child: AutoSizeText(
+                          "${order.bill} ${"SP".tr}",
+                          style: theme.textTheme.titleLarge,
+                          textAlign: TextAlign.end,
+                          maxLines: 1,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Row(
+            children: [
+              Flexible(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    OrderSpecText(
+                      content: 'status'.tr,
+                      imagePath: AppImages.orderStatus,
+                    ),
+                    OrderSpecText(
+                      content: 'date'.tr,
+                      imagePath: AppImages.orderDate,
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: Center(
+                        child: OrderStatusText(
+                          status: order.status,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          order.date,
+                          style: theme.textTheme.titleLarge,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Row(
+            children: [
+              Flexible(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    OrderSpecText(
+                      content: 'Pharmacist Name'.tr,
+                      imagePath: AppImages.userName,
+                    ),
+                    OrderSpecText(
+                      content: 'Pharmacy Name'.tr,
+                      imagePath: AppImages.pharmacyName,
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          order.user!.name,
+                          style: theme.textTheme.titleLarge,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          order.user!.pharmacyName,
+                          style: theme.textTheme.titleLarge,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _OrdersStatusCardsView extends StatefulWidget {
+  const _OrdersStatusCardsView({required this.order});
+  final Order order;
+
+  @override
+  State<_OrdersStatusCardsView> createState() => _OrdersStatusCardsViewState();
+}
+
+class _OrdersStatusCardsViewState extends State<_OrdersStatusCardsView> {
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    // if (widget.order.status == OrderStatus().Preparing) {
+    //   selectedIndex = 0;
+    // } else if (widget.order.status == OrderStatus().Delivering) {
+    //   selectedIndex = 1;
+    // } else if (widget.order.status == OrderStatus().Recieved) {
+    //   selectedIndex = 2;
+    // } else if (widget.order.status == OrderStatus().Refused) {
+    //   selectedIndex = 3;
+    // }
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SizedBox(
+        height: 50,
+        width: double.infinity,
+        child: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: {
+              PointerDeviceKind.touch,
+              PointerDeviceKind.mouse,
+            },
+          ),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              OrderTypeCard(
+                isSelected: selectedIndex == 0,
+                color: Colors.orange,
+                image: AppImages.orderPreparing,
+                title: OrderStatus().Preparing,
+                onTap: () {
+                  setState(() {
+                    selectedIndex = 0;
+                  });
+                },
+              ),
+              OrderTypeCard(
+                isSelected: selectedIndex == 1,
+                color: Colors.blueGrey,
+                image: AppImages.orderDelivering,
+                title: OrderStatus().Delivering,
+                onTap: () {
+                  setState(() {
+                    selectedIndex = 1;
+                  });
+                },
+              ),
+              OrderTypeCard(
+                isSelected: selectedIndex == 2,
+                color: Colors.green,
+                image: AppImages.orderRecieved,
+                title: OrderStatus().Recieved,
+                onTap: () {
+                  setState(() {
+                    selectedIndex = 2;
+                  });
+                },
+              ),
+              OrderTypeCard(
+                isSelected: selectedIndex == 3,
+                color: Colors.red,
+                image: AppImages.orderRefused,
+                title: OrderStatus().Refused,
+                onTap: () {
+                  setState(() {
+                    selectedIndex = 3;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _OrdersPaymentCardsView extends StatefulWidget {
+  const _OrdersPaymentCardsView({required this.order});
+  final Order order;
+
+  @override
+  State<_OrdersPaymentCardsView> createState() =>
+      _OrdersPaymentCardsViewState();
+}
+
+class _OrdersPaymentCardsViewState extends State<_OrdersPaymentCardsView> {
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    // if (widget.order.isPayed) {
+    //   selectedIndex = 1;
+    // } else {
+    //   selectedIndex = 0;
+    // }
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SizedBox(
+        height: 50,
+        width: double.infinity,
+        child: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: {
+              PointerDeviceKind.touch,
+              PointerDeviceKind.mouse,
+            },
+          ),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              OrderTypeCard(
+                isSelected: selectedIndex == 0,
+                color: Colors.deepOrange,
+                image: AppImages.orderNotPayed,
+                title: OrderStatus().NotPayed,
+                onTap: () {
+                  setState(() {
+                    selectedIndex = 0;
+                  });
+                },
+              ),
+              OrderTypeCard(
+                isSelected: selectedIndex == 1,
+                color: Colors.teal,
+                image: AppImages.orderPayed,
+                title: OrderStatus().Payed,
+                onTap: () {
+                  setState(() {
+                    selectedIndex = 1;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
