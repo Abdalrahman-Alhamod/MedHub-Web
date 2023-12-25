@@ -103,16 +103,23 @@ class AppLocale implements Translations {
               "أموكسيل هو مضاد حيوي من البنسلين، يعطى لعلاج الالتهابات التي تسببها البكتيريا",
 
           // Orders
+          "All Orders": "كل الطلبات",
           "preparing": "قيد التحضير",
           "delivering": "يتم التوصيل",
           "recieved": "تم الاستلام",
           "refused": "تم الرفض",
+          "Payed":"مدفوع",
+          "Not Payed":"غير مدفوع",
           "orderID": "معرف الطلب :",
           "totalBill": "المبلغ الإجمالي :",
           "status": "الحالة :",
           "date": "التاريخ :",
           "pc": "ق",
           "orderDetails": "تفاصيل الطلب",
+          "Pharmacist Name": "اسم الصيدلي :",
+          "Pharmacy Name": "اسم الصيدلية :",
+          "Change Order Status":"تغيير حالة الطلب :",
+          "Change Payment Statues":"تغيير حالة الدفع :",
 
           // User
           "statistics": "الإحصائيات",
@@ -262,16 +269,23 @@ class AppLocale implements Translations {
               "Amoxil is a penicillin antibiotic, which is given to treat the infections caused by bacteria",
 
           // Orders
+          "All Orders":"All Orders",
           "preparing": "Preparing",
           "delivering": "Delivering",
           "recieved": "Recieved",
           "refused": "Refused",
+          "Payed": "Payed",
+          "Not Payed": "Not Payed",
           "orderID": "Order ID :",
           "totalBill": "Total Bill :",
           "status": "Status :",
           "date": "Date :",
           "pc": "pc",
           "orderDetails": "Order Details",
+          "Pharmacist Name": "Pharmacist Name :",
+          "Pharmacy Name": "Pharmacy Name :",
+           "Change Order Status":"Change Order Status : ",
+          "Change Payment Statues":"Change Payment Statues : ",
 
           // User
           "statistics": "Statistics",
