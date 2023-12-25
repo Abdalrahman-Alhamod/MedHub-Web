@@ -47,7 +47,7 @@ class Product {
   String description;
   String expirationDate;
   int price;
-  String image;
+  dynamic image;
   int inStock;
   bool isFavorite;
   int quantity;
@@ -68,17 +68,15 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'category': [category.toJson()],
+      'category_id': category.id,
       'name': name,
       'scientificName': scientificName,
-      'brand': brand,
       'description': description,
+      'brand': brand,
       'expirationDate': expirationDate,
       'price': price,
-      'image': image,
       'quantity': inStock,
-      'isFavorite': isFavorite,
+      'image': image,
     };
   }
 
