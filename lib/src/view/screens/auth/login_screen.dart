@@ -78,10 +78,10 @@ class LoginScreen extends StatelessWidget {
                 child: Lottie.asset(AppAnimations.startAnimation),
               ),
             ),
-            const VerticalDivider(
+            VerticalDivider(
               thickness: 3,
               width: 3,
-              color: Colors.grey,
+              color: Colors.grey.shade300,
             ),
             Flexible(
               flex: 1,
@@ -117,7 +117,7 @@ class LoginScreen extends StatelessWidget {
                               Text(
                                 "welcomeMessage".tr,
                                 style: const TextStyle(
-                                    fontSize: 24,
+                                    fontSize: 32,
                                     color: AppColors.textColor,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -127,14 +127,14 @@ class LoginScreen extends StatelessWidget {
                               Text(
                                 "enterCredentials".tr,
                                 style: const TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 20,
                                     color: AppColors.secondaryTextColor,
                                     fontWeight: FontWeight.bold),
                               ),
 
                               // user email textfield
                               const SizedBox(
-                                height: 60,
+                                height: 50,
                               ),
                               CustomeTextField(
                                 validator: userNumberValidator,
