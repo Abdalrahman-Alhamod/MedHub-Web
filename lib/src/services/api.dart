@@ -32,9 +32,10 @@ class Api {
 
     final dio = Dio();
     try {
+      FormData formData = FormData.fromMap(body.cast<String, dynamic>());
       Response response = await dio.request(
         baseUrl + url,
-        data: body,
+        data: formData,
         options: Options(
           headers: requestHeaders,
           method: methodType,
