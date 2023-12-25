@@ -24,6 +24,10 @@ class AppImages {
   static const orderRefused = 'assets/images/orderRefused.png';
   static const orderStatus = 'assets/images/orderStatus.png';
   static const logo = 'assets/images/logo.png';
+  static const userName = 'assets/images/userName.png';
+  static const pharmacyName = 'assets/images/pharmacyName.png';
+  static const orderNotPayed = 'assets/images/orderNotPayed.png';
+  static const orderPayed = 'assets/images/orderPayed.png';
   static const allImages = [
     startWallpaper,
     categoryWallpaper,
@@ -41,5 +45,9 @@ class AppImages {
     orderRefused,
     orderStatus,
     logo,
+    userName,
+    pharmacyName,
+    orderNotPayed,
+    orderPayed,
   ];
 }
