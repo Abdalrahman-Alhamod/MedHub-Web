@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:pharmacy_warehouse_store_web/src/model/warehouse_product.dart';
 
 import '../../../main.dart';
 import '../../model/category.dart';
@@ -47,7 +48,7 @@ class ProductsCubit extends Cubit<ProductsState> {
       // Fetch Searched Products from API
       Map<String, dynamic> productsJsonData = await Api.request(
           url: endpoint,
-          body: null,
+          body: {},
           token: User.token,
           methodType: MethodType.get) as Map<String, dynamic>;
       List<Product> products = Product.fromListJson(productsJsonData);
@@ -95,6 +96,56 @@ class ProductsCubit extends Cubit<ProductsState> {
     } catch (e) {
       logger.e("Product Cubit Favourite : \nFetch Failure ");
       emit(ProductsFetchFailure(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> addProduct({required WarehouseProduct product}) async {
+    try {
+      emit(ProductAddLoading());
+
+      logger.f(product.toString());
+
+      Map<String, dynamic> jsonData = await Api.request(
+        url: 'admin/medicines/',
+        body: product.toJson(),
+        token: User.token,
+        methodType: MethodType.post,
+      ) as Map<String, dynamic>;
+
+      logger.f(jsonData);
+
+      emit(ProductAddSuccess());
+    } on DioException catch (exception) {
+      logger.e("Product Cubit Add Method : \nNetwork Failure ");
+      emit(
+          ProductAddNetworkFailure(errorMessage: exception.message.toString()));
+    } catch (e) {
+      logger.e("Product Cubit Add Method : \nAdd Failure ");
+      emit(ProductAddFailure(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> deleteProduct({required int productId}) async {
+    try {
+      emit(ProductDeleteLoading());
+
+      Map<String, dynamic> jsonData = await Api.request(
+        url: 'admin/medicines/$productId',
+        body: {},
+        token: User.token,
+        methodType: MethodType.delete,
+      ) as Map<String, dynamic>;
+
+      logger.f(jsonData);
+
+      emit(ProductDeleteSuccess());
+    } on DioException catch (exception) {
+      logger.e("Product Cubit Delete Method : \nNetwork Failure ");
+      emit(
+          ProductDeleteNetworkFailure(errorMessage: exception.message.toString()));
+    } catch (e) {
+      logger.e("Product Cubit Delete Method : \nDelete Failure ");
+      emit(ProductDeleteFailure(errorMessage: e.toString()));
     }
   }
 }

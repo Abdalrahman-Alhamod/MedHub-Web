@@ -22,3 +22,31 @@ final class ProductNetworkFailure extends ProductsState {
   String errorMessage;
   ProductNetworkFailure({required this.errorMessage});
 }
+
+final class ProductAddLoading extends ProductsState {}
+
+final class ProductAddSuccess extends ProductsState {}
+
+final class ProductAddFailure extends ProductsState {
+  String errorMessage;
+  ProductAddFailure({required this.errorMessage});
+}
+
+final class ProductAddNetworkFailure extends ProductsState {
+  String errorMessage;
+  ProductAddNetworkFailure({required this.errorMessage});
+}
+
+final class ProductDeleteLoading extends ProductsState {}
+
+final class ProductDeleteSuccess extends ProductsState {}
+
+final class ProductDeleteFailure extends ProductsState {
+  String errorMessage;
+  ProductDeleteFailure({required this.errorMessage});
+}
+
+final class ProductDeleteNetworkFailure extends ProductsState {
+  String errorMessage;
+  ProductDeleteNetworkFailure({required this.errorMessage});
+}
