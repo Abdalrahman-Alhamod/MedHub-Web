@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:pharmacy_warehouse_store_web/core/assets/app_images.dart';
 import 'package:pharmacy_warehouse_store_web/core/constants/app_colors.dart';
 import 'package:pharmacy_warehouse_store_web/core/data/app_data.dart';
-import 'package:pharmacy_warehouse_store_web/main.dart';
 import 'package:pharmacy_warehouse_store_web/src/Cubits/Products/products_cubit.dart';
 import 'package:pharmacy_warehouse_store_web/src/model/category.dart';
 import 'package:pharmacy_warehouse_store_web/src/model/product.dart';
@@ -143,7 +142,6 @@ class AddProductScreen extends StatelessWidget {
         arBrand: arBrand,
         profit: int.parse(profit),
       );
-      logger.f(addedProduct.toJson);
       BlocProvider.of<ProductsCubit>(context).addProduct(product: addedProduct);
     }
 
