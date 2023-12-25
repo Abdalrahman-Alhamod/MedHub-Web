@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart' as get_lib;
 import 'package:logger/logger.dart';
 import 'package:pharmacy_warehouse_store_web/src/routes/app_pages.dart';
-
 import 'core/constants/app_general_constants.dart';
 import 'core/constants/app_theme.dart';
 import 'src/Cubits/Auth/Login/login_cubit.dart';
@@ -27,9 +26,12 @@ void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // await FirebaseApi().initNotifications();
-  get_lib.Get.put(AppLocalController());
-  Bloc.observer = SimpleBlocObserver();
-  return runApp(const MedHubWeb());
+  try {
+    get_lib.Get.put(AppLocalController());
+    Bloc.observer = SimpleBlocObserver();
+    return runApp(const MedHubWeb());
+  // ignore: empty_catches
+  } catch (e) {}
 }
 
 class MedHubWeb extends StatelessWidget {
