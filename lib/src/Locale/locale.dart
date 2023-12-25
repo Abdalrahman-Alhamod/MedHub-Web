@@ -67,6 +67,12 @@ class AppLocale implements Translations {
           "confirm": "تأكيد",
           "addedSuccessfully": "تمت الإضافة بنجاح !",
           "unavailable": "غير متوفر",
+          "Delete": "حذف",
+          "Edit Information": "تعديل المعلومات",
+          "Product Deleted Successfully !": "تم حذف المنتج بنجاح !",
+          "Delete Product": "حذف منتج",
+          "Are you sure you want to delete the product with id ":
+              "هل أنت متأكد أنك تريد حذف المنتج ذو المعرف ",
 
           // Product List View
           "searchFor": "ابحث عن",
@@ -130,6 +136,32 @@ class AppLocale implements Translations {
           "Favorites": "المفضلة",
           "Top Purchased Categories": "أهم الفئات التي تم شراؤها",
           "Weekly Expense": "المصروف الأسبوعي",
+
+          // Add product
+          "Value must be greate than zero":
+              "يجب أن تكون القيمة أكبر تماماً من الصفر",
+          "Profit must be smaller than price":
+              "يجب أن يكون الربح أصغر من السعر",
+          "Category is required !": "فئة المنتج مطلوبة !",
+          "Date is required !": "التاريخ مطلوب !",
+          "Image is required !": "الصورة مطلوبة !",
+          "Product Added Successfully !": "تمت إضافة المنتج بنجاح",
+          "Add Product": "إضافة منتج",
+          "English Name": "الاسم التجاري بالإنكليزية",
+          "English Scientific Name": "الاسم العلمي بالإنكليزية",
+          "English Description": "الوصف بالإنكليزية",
+          "English Brand Name": "اسم الشركة بالإنكليزية",
+          "Arabic Name": "الاسم التجاري بالعربية",
+          "Arabic Scientific Name": "الاسم العلمي بالعربية",
+          "Arabic Description": "الوصف بالعربية",
+          "Arabic Brand Name": "اسم الشركة بالعربية",
+          "Price": "السعر",
+          "Profit": "الربح",
+          "Quantity": "الكمية",
+          "Product Category": "فئة المنتج",
+          "Expiration Date": "تاريخ انتهاء الصلاحية",
+          "Product Image": "صورة المنتج",
+          "Add": "إضافة",
         },
         "en": {
           //start
@@ -195,6 +227,11 @@ class AppLocale implements Translations {
           "confirm": "Confirm",
           "addedSuccessfully": "Added Successfully !",
           "unavailable": "Unavailable",
+          "Delete": "Delete",
+          "Edit Information": "Edit Information",
+          "Delete Product": "Delete Product",
+          "Are you sure you want to delete the product with id ":
+              "Are you sure you want to delete the product with id ",
 
           // Product List View
           "searchFor": "Search for",
@@ -257,6 +294,31 @@ class AppLocale implements Translations {
           "Favorites": "Favorites",
           "Top Purchased Categories": "Top Purchased Categories",
           "Weekly Expense": "Weekly Expense",
+
+          // Add product
+          "Value must be greate than zero": "Value must be greate than zero",
+          "Profit must be smaller than price": "Profit must be less than price",
+          "Category is required !": "Category is required !",
+          "Date is required !": "Date is required !",
+          "Image is required !": "Image is required !",
+          "Product Added Successfully !": "Product Added Successfully !",
+          "Add Product": "Add Product",
+          "English Name": "English Name",
+          "English Scientific Name": "English Scientific Name",
+          "English Description": "English Description",
+          "English Brand Name": "English Brand Name",
+          "Arabic Name": "Arabic Name",
+          "Arabic Scientific Name": "Arabic Scientific Name",
+          "Arabic Description": "Arabic Description",
+          "Arabic Brand Name": "Arabic Brand Name",
+          "Price": "Price",
+          "Profit": "Profit",
+          "Quantity": "Quantity",
+          "Product Category": "Product Category",
+          "Expiration Date": "Expiration Date",
+          "Product Image": "Product Image",
+          "Add": "Add",
+          "Product Deleted Successfully !": "Product Deleted Successfully !",
         },
       };
 }
