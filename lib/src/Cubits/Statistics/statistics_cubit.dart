@@ -19,7 +19,6 @@ class StatisticsCubit extends Cubit<StatisticsState> {
           token: User.token,
           methodType: MethodType.get) as Map<String, dynamic>;
       Statistics statistics = Statistics.fromJson(statisticsJsonData);
-      logger.f(statistics);
 
       emit(StatisticsFetchSuccess(statistics: statistics));
     } on DioException catch (exception) {

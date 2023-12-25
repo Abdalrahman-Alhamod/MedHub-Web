@@ -103,16 +103,12 @@ class ProductsCubit extends Cubit<ProductsState> {
     try {
       emit(ProductAddLoading());
 
-      logger.f(product.toString());
-
-      Map<String, dynamic> jsonData = await Api.request(
+      await Api.request(
         url: 'admin/medicines/',
         body: product.toJson(),
         token: User.token,
         methodType: MethodType.post,
       ) as Map<String, dynamic>;
-
-      logger.f(jsonData);
 
       emit(ProductAddSuccess());
     } on DioException catch (exception) {
@@ -129,14 +125,12 @@ class ProductsCubit extends Cubit<ProductsState> {
     try {
       emit(ProductDeleteLoading());
 
-      Map<String, dynamic> jsonData = await Api.request(
+      await Api.request(
         url: 'admin/medicines/$productId',
         body: {},
         token: User.token,
         methodType: MethodType.delete,
       ) as Map<String, dynamic>;
-
-      logger.f(jsonData);
 
       emit(ProductDeleteSuccess());
     } on DioException catch (exception) {
