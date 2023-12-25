@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import '../../../core/assets/app_images.dart';
 import '../../model/order.dart';
 import '../screens/order_details_screen.dart';
-import 'show_image.dart';
+import 'order_spec_text.dart';
+import 'order_status_text.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({super.key, required this.order});
@@ -42,30 +43,44 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _CategorySpecText(
+                  OrderSpecText(
                     content: 'orderID'.tr,
                     imagePath: AppImages.orderID,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  _CategorySpecText(
+                  OrderSpecText(
                     content: 'totalBill'.tr,
                     imagePath: AppImages.orderBill,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  _CategorySpecText(
+                  OrderSpecText(
                     content: 'status'.tr,
                     imagePath: AppImages.orderStatus,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  _CategorySpecText(
+                  OrderSpecText(
                     content: 'date'.tr,
                     imagePath: AppImages.orderDate,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  OrderSpecText(
+                    content: 'Pharmacist Name'.tr,
+                    imagePath: AppImages.userName,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  OrderSpecText(
+                    content: 'Pharmacy Name'.tr,
+                    imagePath: AppImages.pharmacyName,
                   ),
                 ],
               ),
@@ -92,7 +107,7 @@ class OrderCard extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  _OrderStatusText(
+                  OrderStatusText(
                     status: order.status,
                   ),
                   const SizedBox(
@@ -100,6 +115,20 @@ class OrderCard extends StatelessWidget {
                   ),
                   Text(
                     order.date,
+                    style: theme.textTheme.titleLarge,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    order.user!.name,
+                    style: theme.textTheme.titleLarge,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    order.user!.pharmacyName,
                     style: theme.textTheme.titleLarge,
                   ),
                 ],
@@ -112,55 +141,4 @@ class OrderCard extends StatelessWidget {
   }
 }
 
-class _OrderStatusText extends StatelessWidget {
-  const _OrderStatusText({required this.status});
-  final String status;
-  @override
-  Widget build(BuildContext context) {
-    var theme = context.theme;
-    Color color = Colors.black;
-    OrderStatus orderStatus = OrderStatus();
-    if (status == orderStatus.Preparing) {
-      color = Colors.orange;
-    } else if (status == orderStatus.Delivering) {
-      color = Colors.blueGrey;
-    } else if (status == orderStatus.Recieved) {
-      color = Colors.green;
-    } else if (status == orderStatus.Refused) {
-      color = Colors.red;
-    }
-    return Text(
-      status,
-      style: theme.textTheme.titleLarge!.copyWith(color: color),
-    );
-  }
-}
 
-class _CategorySpecText extends StatelessWidget {
-  const _CategorySpecText({required this.content, required this.imagePath});
-
-  final String content;
-  final String imagePath;
-
-  @override
-  Widget build(BuildContext context) {
-    var theme = context.theme;
-    return Row(
-      children: [
-        ShowImage(
-          imagePath: imagePath,
-          height: 30,
-          width: 30,
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(
-          content,
-          style: theme.textTheme.titleLarge!.copyWith(
-              fontWeight: FontWeight.bold, color: Colors.grey.shade500),
-        ),
-      ],
-    );
-  }
-}
