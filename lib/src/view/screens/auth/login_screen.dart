@@ -81,6 +81,7 @@ class LoginScreen extends StatelessWidget {
             const VerticalDivider(
               thickness: 3,
               width: 3,
+              color: Colors.grey,
             ),
             Flexible(
               flex: 1,
