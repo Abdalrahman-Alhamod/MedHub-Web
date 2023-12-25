@@ -36,10 +36,6 @@ class ProductsListScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const _AdsView(),
-              const SizedBox(
-                height: 10,
-              ),
               Text(
                 "categories".tr,
                 style: theme.textTheme.titleLarge,
@@ -288,42 +284,6 @@ class _CategoriesCardsViewSuccess extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class _AdsView extends StatelessWidget {
-  const _AdsView();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 150,
-      width: double.infinity,
-      child: ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(
-          dragDevices: {
-            PointerDeviceKind.touch,
-            PointerDeviceKind.mouse,
-          },
-        ),
-        child: ListView.builder(
-          itemCount: AppImages.ads.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Container(
-              margin: const EdgeInsets.only(right: 8),
-              width: 220,
-              decoration: BoxDecoration(
-                color: Colors.blueGrey,
-                borderRadius: BorderRadius.circular(8),
-                image: DecorationImage(
-                    image: AssetImage(AppImages.ads[index]), fit: BoxFit.cover),
-              ),
-            );
-          },
-        ),
       ),
     );
   }
