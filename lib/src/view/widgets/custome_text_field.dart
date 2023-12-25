@@ -9,15 +9,18 @@ import '../helpers/search_by_dialog.dart';
 class CustomeTextField extends StatefulWidget {
   const CustomeTextField({
     super.key,
-    required this.obscureText,
     required this.hintText,
     required this.onChanged,
     required this.validator,
-    required this.keyboardType,
     required this.prefixIcon,
+    this.keyboardType = TextInputType.text,
+    this.obscureText = false,
     this.onTap,
     this.onSubmit,
     this.isSearchBar = false,
+    this.floatingLabelFontSize = 16,
+    this.maxLines = 1,
+    this.textDirection
   });
   final bool obscureText;
   final String hintText;
@@ -28,6 +31,9 @@ class CustomeTextField extends StatefulWidget {
   final void Function()? onTap;
   final void Function(String)? onSubmit;
   final bool isSearchBar;
+  final double floatingLabelFontSize;
+  final int maxLines;
+  final TextDirection? textDirection;
 
   @override
   State<CustomeTextField> createState() => _CustomeTextFieldState();
@@ -65,7 +71,10 @@ class _CustomeTextFieldState extends State<CustomeTextField> {
                 onPressed: widget.onTap,
                 icon: Icon(widget.prefixIcon),
               )
-            : Icon(widget.prefixIcon),
+            : Icon(
+                widget.prefixIcon,
+                color: AppColors.primaryColor,
+              ),
         suffixIcon: widget.obscureText
             ? IconButton(
                 icon: _enableObscureText
@@ -135,9 +144,15 @@ class _CustomeTextFieldState extends State<CustomeTextField> {
         ),
         fillColor: Colors.grey.shade200,
         filled: true,
-        floatingLabelStyle: const TextStyle(color: AppColors.primaryColor),
-        errorStyle: const TextStyle(color: Colors.red),
+        floatingLabelStyle: TextStyle(
+            color: AppColors.primaryColor,
+            fontSize: widget.floatingLabelFontSize),
+        errorStyle: const TextStyle(
+          color: Colors.red,
+        ),
       ),
+      maxLines: widget.maxLines,
+      textDirection: widget.textDirection,
     );
   }
 }
