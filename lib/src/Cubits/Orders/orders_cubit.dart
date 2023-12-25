@@ -11,11 +11,21 @@ part 'orders_state.dart';
 class OrdersCubit extends Cubit<OrdersState> {
   OrdersCubit() : super(OrdersInitial());
 
-  void getOrders() async {
+  void getOrders({required String ordersType}) async {
     try {
       emit(OrdersFetchLoading());
+      String endpoint = "";
+      if (ordersType == OrderStatus().Preparing) {
+        endpoint = "prep";
+      } else if (ordersType == OrderStatus().Delivering) {
+        endpoint = "getDel";
+      } else if (ordersType == OrderStatus().Recieved) {
+        endpoint = "del";
+      } else if (ordersType == OrderStatus().Refused) {
+        endpoint = "refused";
+      }
       Map<String, dynamic> ordersJsonData = await Api.request(
-          url: 'api/carts',
+          url: 'admin/carts/$endpoint',
           body: {},
           token: User.token,
           methodType: MethodType.get) as Map<String, dynamic>;
