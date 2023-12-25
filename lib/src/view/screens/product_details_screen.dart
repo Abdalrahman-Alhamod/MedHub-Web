@@ -138,12 +138,12 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            _Buttons(
-              product: product,
-            )
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            // _Buttons(
+            //   product: product,
+            // )
           ],
         ),
       ),
@@ -218,26 +218,6 @@ class _Buttons extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              // Container(
-              //   // padding: EdgeInsets.fromLTRB(16.w, 12.h, 10.w, 12.h),
-              //   decoration: BoxDecoration(
-              //     color: theme.scaffoldBackgroundColor,
-              //     borderRadius: BorderRadius.circular(16),
-              //     border: Border.all(color: theme.dividerColor),
-              //   ),
-              //   child: IconButton(
-              //     onPressed: () {
-              //       BlocProvider.of<FavouriteCubit>(context)
-              //           .toggleFavourate(product: product);
-              //       product.isFavorite = !product.isFavorite;
-              //     },
-              //     icon: Icon(
-              //       Icons.favorite,
-              //       color: isFav ? Colors.red : Colors.grey,
-              //       size: 60,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
