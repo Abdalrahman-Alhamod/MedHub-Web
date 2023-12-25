@@ -31,18 +31,19 @@ class CustomeCard extends StatelessWidget {
         children: [
           icon,
           const SizedBox(
-            height: 10,
+            width: 20,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: 100,
+                width: 200,
                 child: AutoSizeText(
                   title,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: titleColor,
+                    fontSize: 20,
                   ),
                   minFontSize: 6,
                   wrapWords: false,
@@ -53,10 +54,12 @@ class CustomeCard extends StatelessWidget {
                 height: 5,
               ),
               SizedBox(
-                  width: 100,
+                  width: 200,
                   child: AutoSizeText(
                     subtitle,
-                    style: theme.textTheme.bodyMedium,
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                      fontSize: 20,
+                    ),
                     minFontSize: 6,
                     maxLines: 1,
                   )),
