@@ -6,6 +6,12 @@ import 'app_text_styles.dart';
 final ThemeData appTheme = ThemeData(
   primarySwatch: Colors.blue,
   primaryColor: AppColors.primaryColor,
+  colorScheme: ColorScheme.light(
+    primary: AppColors.primaryColor,
+    secondary: AppColors.secondaryColor,
+    onError: Colors.grey.shade800,
+  ),
+  //buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
   hintColor: AppColors.secondaryColor,
   scaffoldBackgroundColor: AppColors.backgroundColor,
   textTheme: const TextTheme(
