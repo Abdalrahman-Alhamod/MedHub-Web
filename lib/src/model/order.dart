@@ -1,10 +1,14 @@
 import 'package:get/get.dart';
+import 'package:pharmacy_warehouse_store_web/src/model/user.dart';
 
 import '../../main.dart';
 import 'order_product.dart';
 
 class OrderStatus {
   OrderStatus();
+// ignore: non_constant_identifier_names
+  String All = 'All Orders'.tr;
+
   // ignore: non_constant_identifier_names
   String Preparing = 'preparing'.tr;
 
@@ -16,6 +20,12 @@ class OrderStatus {
 
   // ignore: non_constant_identifier_names
   String Refused = 'refused'.tr;
+
+   // ignore: non_constant_identifier_names
+  String NotPayed = 'Not Payed'.tr;
+
+   // ignore: non_constant_identifier_names
+  String Payed = 'Payed'.tr;
 }
 
 class Order {
@@ -24,6 +34,7 @@ class Order {
   String status;
   bool isPayed;
   String date;
+  User? user;
   List<OrderProduct> orderedProducts;
 
   Order({
@@ -32,6 +43,7 @@ class Order {
     required this.status,
     required this.isPayed,
     required this.date,
+    this.user,
     this.orderedProducts = const [],
   });
 
@@ -42,6 +54,7 @@ class Order {
       status: _getStatusFromJson(jsonData['status']),
       isPayed: jsonData['payment_status'] == 1,
       date: jsonData['ordered_at'],
+      user: jsonData['user'] != null ? User.fromJson(jsonData['user']) : null,
       orderedProducts: OrderProduct.fromListJson(jsonData),
     );
   }
@@ -90,6 +103,8 @@ class Order {
       Status: $status
       Is Payed: $isPayed
       Date: $date
+      User:
+      ${user.toString()}
       Ordered Products: 
       $orderedProducts
     }
