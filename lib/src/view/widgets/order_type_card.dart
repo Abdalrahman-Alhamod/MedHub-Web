@@ -4,19 +4,20 @@ import 'package:get/get.dart';
 import 'show_image.dart';
 
 class OrderTypeCard extends StatelessWidget {
-  const OrderTypeCard({
-    super.key,
-    required this.isSelected,
-    required this.color,
-    required this.image,
-    required this.title,
-    required this.onTap,
-  });
+  const OrderTypeCard(
+      {super.key,
+      required this.isSelected,
+      required this.color,
+      required this.image,
+      required this.title,
+      required this.onTap,
+      this.isEnabled = true});
   final bool isSelected;
   final Color color;
   final String image;
   final String title;
   final void Function() onTap;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,9 @@ class OrderTypeCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: MouseRegion(
-        cursor: SystemMouseCursors.click,
+        cursor: isEnabled ? SystemMouseCursors.click : SystemMouseCursors.basic,
         child: GestureDetector(
-          onTap: onTap,
+          onTap: isEnabled ? onTap : null,
           child: Row(
             children: [
               Container(

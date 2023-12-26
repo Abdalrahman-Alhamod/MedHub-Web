@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart' as get_lib;
 import 'package:logger/logger.dart';
+import 'package:pharmacy_warehouse_store_web/src/Cubits/Orders/change_order_status_cubit.dart';
+import 'package:pharmacy_warehouse_store_web/src/Cubits/Orders/make_order_payed_cubit.dart';
 import 'package:pharmacy_warehouse_store_web/src/routes/app_pages.dart';
 import 'core/constants/app_general_constants.dart';
 import 'core/constants/app_theme.dart';
@@ -30,7 +32,7 @@ void main() async {
     get_lib.Get.put(AppLocalController());
     Bloc.observer = SimpleBlocObserver();
     return runApp(const MedHubWeb());
-  // ignore: empty_catches
+    // ignore: empty_catches
   } catch (e) {}
 }
 
@@ -73,6 +75,12 @@ class MedHubWeb extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => StatisticsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => MakeOrderPayedCubit(),
+        ),
+         BlocProvider(
+          create: (context) => ChangeOrderStatusCubit(),
         ),
       ],
       child: get_lib.GetMaterialApp(

@@ -3,11 +3,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:pharmacy_warehouse_store_web/main.dart';
+import 'package:pharmacy_warehouse_store_web/src/Cubits/Orders/change_order_status_cubit.dart';
+import 'package:pharmacy_warehouse_store_web/src/Cubits/Orders/make_order_payed_cubit.dart';
 
 import '../../../core/assets/app_images.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../Cubits/Orders/orders_cubit.dart';
 import '../../model/order.dart';
+import '../helpers/show_loading_dialog.dart';
 import '../helpers/show_snack_bar.dart';
 import '../widgets/order_spec_text.dart';
 import '../widgets/order_status_text.dart';
@@ -356,16 +360,9 @@ class _OrderDetails extends StatelessWidget {
   }
 }
 
-class _OrdersStatusCardsView extends StatefulWidget {
+class _OrdersStatusCardsView extends StatelessWidget {
   const _OrdersStatusCardsView({required this.order});
   final Order order;
-
-  @override
-  State<_OrdersStatusCardsView> createState() => _OrdersStatusCardsViewState();
-}
-
-class _OrdersStatusCardsViewState extends State<_OrdersStatusCardsView> {
-  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -378,66 +375,85 @@ class _OrdersStatusCardsViewState extends State<_OrdersStatusCardsView> {
     // } else if (widget.order.status == OrderStatus().Refused) {
     //   selectedIndex = 3;
     // }
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SizedBox(
-        height: 50,
-        width: double.infinity,
-        child: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(
-            dragDevices: {
-              PointerDeviceKind.touch,
-              PointerDeviceKind.mouse,
-            },
-          ),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              OrderTypeCard(
-                isSelected: selectedIndex == 0,
-                color: Colors.orange,
-                image: AppImages.orderPreparing,
-                title: OrderStatus().Preparing,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 0;
-                  });
-                },
-              ),
-              OrderTypeCard(
-                isSelected: selectedIndex == 1,
-                color: Colors.blueGrey,
-                image: AppImages.orderDelivering,
-                title: OrderStatus().Delivering,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 1;
-                  });
-                },
-              ),
-              OrderTypeCard(
-                isSelected: selectedIndex == 2,
-                color: Colors.green,
-                image: AppImages.orderRecieved,
-                title: OrderStatus().Recieved,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 2;
-                  });
-                },
-              ),
-              OrderTypeCard(
-                isSelected: selectedIndex == 3,
-                color: Colors.red,
-                image: AppImages.orderRefused,
-                title: OrderStatus().Refused,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 3;
-                  });
-                },
-              ),
-            ],
+    return BlocListener<ChangeOrderStatusCubit, ChangeOrderStatusState>(
+      listener: (context, state) {
+        if (state is ChangeOrderStatusLoading) {
+          showLoadingDialog();
+        } else if (state is ChangeOrderStatusSuccess) {
+          Get.until((route) => !Get.isDialogOpen!);
+          showSnackBar(
+              "Order with id #${order.id} status changed Successfully !".tr,
+              SnackBarMessageType.success);
+          BlocProvider.of<OrdersCubit>(context).getOrder(id: order.id);
+        } else if (state is ChangeOrderStatusNetworkFailure) {
+          Get.until((route) => !Get.isDialogOpen!);
+          showSnackBar(state.errorMessage, SnackBarMessageType.error);
+        } else if (state is ChangeOrderStatusFailure) {
+          Get.until((route) => !Get.isDialogOpen!);
+          showSnackBar(state.errorMessage, SnackBarMessageType.error);
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SizedBox(
+          height: 50,
+          width: double.infinity,
+          child: ScrollConfiguration(
+            behavior: ScrollConfiguration.of(context).copyWith(
+              dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              },
+            ),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                OrderTypeCard(
+                  isSelected: order.status == OrderStatus().Preparing,
+                  color: Colors.orange,
+                  image: AppImages.orderPreparing,
+                  title: OrderStatus().Preparing,
+                  isEnabled: false,
+                  onTap: () {},
+                ),
+                OrderTypeCard(
+                  isSelected: order.status == OrderStatus().Delivering,
+                  color: Colors.blueGrey,
+                  image: AppImages.orderDelivering,
+                  title: OrderStatus().Delivering,
+                  isEnabled: order.status == OrderStatus().Preparing,
+                  onTap: () {
+                    BlocProvider.of<ChangeOrderStatusCubit>(context)
+                        .changeStatus(
+                            orderId: order.id, newStatus: "getting delivered");
+                  },
+                ),
+                OrderTypeCard(
+                  isSelected: order.status == OrderStatus().Refused,
+                  color: Colors.red,
+                  image: AppImages.orderRefused,
+                  title: OrderStatus().Refused,
+                  isEnabled: order.status == OrderStatus().Preparing,
+                  onTap: () {
+                    BlocProvider.of<ChangeOrderStatusCubit>(context)
+                        .changeStatus(orderId: order.id, newStatus: "refused");
+                  },
+                ),
+                OrderTypeCard(
+                  isSelected: order.status == OrderStatus().Recieved,
+                  color: Colors.green,
+                  image: AppImages.orderRecieved,
+                  title: OrderStatus().Recieved,
+                  isEnabled:
+                      order.status == OrderStatus().Delivering && order.isPayed,
+                  onTap: () {
+                    BlocProvider.of<ChangeOrderStatusCubit>(context)
+                        .changeStatus(
+                            orderId: order.id, newStatus: "delivered");
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -445,63 +461,67 @@ class _OrdersStatusCardsViewState extends State<_OrdersStatusCardsView> {
   }
 }
 
-class _OrdersPaymentCardsView extends StatefulWidget {
+class _OrdersPaymentCardsView extends StatelessWidget {
   const _OrdersPaymentCardsView({required this.order});
   final Order order;
 
   @override
-  State<_OrdersPaymentCardsView> createState() =>
-      _OrdersPaymentCardsViewState();
-}
-
-class _OrdersPaymentCardsViewState extends State<_OrdersPaymentCardsView> {
-  int selectedIndex = 0;
-
-  @override
   Widget build(BuildContext context) {
-    // if (widget.order.isPayed) {
-    //   selectedIndex = 1;
-    // } else {
-    //   selectedIndex = 0;
-    // }
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SizedBox(
-        height: 50,
-        width: double.infinity,
-        child: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(
-            dragDevices: {
-              PointerDeviceKind.touch,
-              PointerDeviceKind.mouse,
-            },
-          ),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              OrderTypeCard(
-                isSelected: selectedIndex == 0,
-                color: Colors.deepOrange,
-                image: AppImages.orderNotPayed,
-                title: OrderStatus().NotPayed,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 0;
-                  });
-                },
-              ),
-              OrderTypeCard(
-                isSelected: selectedIndex == 1,
-                color: Colors.teal,
-                image: AppImages.orderPayed,
-                title: OrderStatus().Payed,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 1;
-                  });
-                },
-              ),
-            ],
+    logger.f(order);
+    return BlocListener<MakeOrderPayedCubit, MakeOrderPayedState>(
+      listener: (context, state) {
+        if (state is MakeOrderPayedLoading) {
+          showLoadingDialog();
+        } else if (state is MakeOrderPayedSuccess) {
+          Get.until((route) => !Get.isDialogOpen!);
+          showSnackBar("Order with id #${order.id} Payed Successfully !".tr,
+              SnackBarMessageType.success);
+          BlocProvider.of<OrdersCubit>(context).getOrder(id: order.id);
+        } else if (state is MakeOrderPayedNetworkFailure) {
+          Get.until((route) => !Get.isDialogOpen!);
+          showSnackBar(state.errorMessage, SnackBarMessageType.error);
+        } else if (state is MakeOrderPayedFailure) {
+          Get.until((route) => !Get.isDialogOpen!);
+          showSnackBar(state.errorMessage, SnackBarMessageType.error);
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SizedBox(
+          height: 50,
+          width: double.infinity,
+          child: ScrollConfiguration(
+            behavior: ScrollConfiguration.of(context).copyWith(
+              dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              },
+            ),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                OrderTypeCard(
+                  isSelected: !order.isPayed,
+                  color: Colors.deepOrange,
+                  image: AppImages.orderNotPayed,
+                  title: OrderStatus().NotPayed,
+                  isEnabled: false,
+                  onTap: () {},
+                ),
+                OrderTypeCard(
+                  isSelected: order.isPayed,
+                  color: Colors.teal,
+                  image: AppImages.orderPayed,
+                  title: OrderStatus().Payed,
+                  isEnabled:
+                      !order.isPayed && order.status != OrderStatus().Refused,
+                  onTap: () {
+                    BlocProvider.of<MakeOrderPayedCubit>(context)
+                        .makePayed(orderId: order.id);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
