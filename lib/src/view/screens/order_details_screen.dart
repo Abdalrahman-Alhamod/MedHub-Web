@@ -480,9 +480,11 @@ class _OrdersPaymentCardsView extends StatelessWidget {
         } else if (state is MakeOrderPayedNetworkFailure) {
           Get.until((route) => !Get.isDialogOpen!);
           showSnackBar(state.errorMessage, SnackBarMessageType.error);
+          BlocProvider.of<OrdersCubit>(context).getOrder(id: order.id);
         } else if (state is MakeOrderPayedFailure) {
           Get.until((route) => !Get.isDialogOpen!);
           showSnackBar(state.errorMessage, SnackBarMessageType.error);
+          BlocProvider.of<OrdersCubit>(context).getOrder(id: order.id);
         }
       },
       child: Padding(
