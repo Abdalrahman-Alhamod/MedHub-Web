@@ -15,7 +15,7 @@ class MethodType {
 
 class Api {
   const Api._();
-  static const String baseUrl = 'http://192.168.42.2:8000/';
+  static const String baseUrl = 'http://127.0.0.1:8000/';
 
   static Future<dynamic> request(
       {required String url,
@@ -26,16 +26,19 @@ class Api {
     Map<String, String> requestHeaders = {};
 
     requestHeaders.addAll(
-      {'token': token ?? "", 'lang': get_lib.Get.locale.toString()},
+      {
+        'token': token ?? "",
+        'lang': get_lib.Get.locale.toString(),
+      },
     );
     requestHeaders.addAll(headers);
 
     final dio = Dio();
     try {
-      FormData formData = FormData.fromMap(body.cast<String, dynamic>());
+      //       FormData formData = FormData.fromMap(body.cast<String, dynamic>());
       Response response = await dio.request(
         baseUrl + url,
-        data: formData,
+        data: body,
         options: Options(
           headers: requestHeaders,
           method: methodType,

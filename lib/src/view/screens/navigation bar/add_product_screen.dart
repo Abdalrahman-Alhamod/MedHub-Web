@@ -1,8 +1,9 @@
-import 'package:dio/dio.dart' as dio;
-import 'package:file_picker/file_picker.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:pharmacy_warehouse_store_web/core/assets/app_images.dart';
 import 'package:pharmacy_warehouse_store_web/core/constants/app_colors.dart';
 import 'package:pharmacy_warehouse_store_web/core/data/app_data.dart';
@@ -88,16 +89,23 @@ class AddProductScreen extends StatelessWidget {
     }
 
     Future<void> selectImage() async {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['png'],
-      );
-      if (result != null) {
-        var picked = result.files.single.bytes;
-        imageName.value = result.files.single.name;
-        image = dio.MultipartFile.fromBytes(picked as List<int>);
-        selectedImageTextColor = Colors.grey;
-      } else {}
+      // FilePickerResult? result = await FilePicker.platform.pickFiles(
+      //   type: FileType.custom,
+      //   allowedExtensions: ['png'],
+      // );
+      // if (result != null) {
+      //   var picked = result.files.single.bytes;
+      //   imageName.value = result.files.single.name;
+      //   image = dio.MultipartFile.fromBytes(picked as List<int>,
+      //       contentType: MediaType('application', 'form-data'));
+      //   //image = base64Encode(picked as List<int>);
+      //   selectedImageTextColor = Colors.grey;
+      // } else {}
+
+      final imageBytes = await ImagePickerWeb.getImageAsBytes();
+      if (imageBytes != null) {
+        image = base64Encode(imageBytes);
+      }
     }
 
     Future<void> pickDate() async {
@@ -142,7 +150,8 @@ class AddProductScreen extends StatelessWidget {
         arBrand: arBrand,
         profit: int.parse(profit),
       );
-      BlocProvider.of<ProductsCubit>(context).addProduct(product: addedProduct);
+      BlocProvider.of<ProductsCubit>(context)
+          .addProduct(warehouseProduct: addedProduct);
     }
 
     resetValues() {
@@ -174,7 +183,7 @@ class AddProductScreen extends StatelessWidget {
         check3 = true;
       }
 
-      if (imageName.value == "") {
+      if (image == null) {
         imageName.value = "Image is required !".tr;
         selectedImageTextColor = Colors.red;
       } else {

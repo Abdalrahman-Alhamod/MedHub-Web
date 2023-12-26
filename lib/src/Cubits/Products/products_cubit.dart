@@ -99,13 +99,13 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
   }
 
-  Future<void> addProduct({required WarehouseProduct product}) async {
+  Future<void> addProduct({required WarehouseProduct warehouseProduct}) async {
     try {
       emit(ProductAddLoading());
 
       await Api.request(
         url: 'admin/medicines/',
-        body: product.toJson(),
+        body: warehouseProduct.toJson(),
         token: User.token,
         methodType: MethodType.post,
       ) as Map<String, dynamic>;
@@ -135,8 +135,8 @@ class ProductsCubit extends Cubit<ProductsState> {
       emit(ProductDeleteSuccess());
     } on DioException catch (exception) {
       logger.e("Product Cubit Delete Method : \nNetwork Failure ");
-      emit(
-          ProductDeleteNetworkFailure(errorMessage: exception.message.toString()));
+      emit(ProductDeleteNetworkFailure(
+          errorMessage: exception.message.toString()));
     } catch (e) {
       logger.e("Product Cubit Delete Method : \nDelete Failure ");
       emit(ProductDeleteFailure(errorMessage: e.toString()));
