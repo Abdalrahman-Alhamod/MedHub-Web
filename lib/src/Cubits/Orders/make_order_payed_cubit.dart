@@ -13,13 +13,12 @@ class MakeOrderPayedCubit extends Cubit<MakeOrderPayedState> {
   void makePayed({required int orderId}) async {
     try {
       emit(MakeOrderPayedLoading());
-      Map<String, dynamic> jsonData = await Api.request(
+      await Api.request(
         url: 'admin/carts/pay/$orderId',
         body: {},
         token: User.token,
         methodType: MethodType.post,
       ) as Map<String, dynamic>;
-      logger.f(jsonData.toString());
       emit(MakeOrderPayedSuccess());
     } on DioException catch (exception) {
       logger.e(
