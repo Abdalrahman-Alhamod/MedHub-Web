@@ -108,8 +108,8 @@ class AppLocale implements Translations {
           "delivering": "يتم التوصيل",
           "recieved": "تم الاستلام",
           "refused": "تم الرفض",
-          "Payed":"مدفوع",
-          "Not Payed":"غير مدفوع",
+          "Payed": "مدفوع",
+          "Not Payed": "غير مدفوع",
           "orderID": "معرف الطلب :",
           "totalBill": "المبلغ الإجمالي :",
           "status": "الحالة :",
@@ -118,8 +118,11 @@ class AppLocale implements Translations {
           "orderDetails": "تفاصيل الطلب",
           "Pharmacist Name": "اسم الصيدلي :",
           "Pharmacy Name": "اسم الصيدلية :",
-          "Change Order Status":"تغيير حالة الطلب :",
-          "Change Payment Statues":"تغيير حالة الدفع :",
+          "Change Order Status": "تغيير حالة الطلب :",
+          "Change Payment Statues": "تغيير حالة الدفع :",
+          "Order with id": "الطلب ذو المعرف #",
+          "Paid Successfully": "تم دفعه بنجاح !",
+          "Status changed Successfully": "تم تغيير حالته بنجاح !",
 
           // User
           "statistics": "الإحصائيات",
@@ -169,6 +172,25 @@ class AppLocale implements Translations {
           "Expiration Date": "تاريخ انتهاء الصلاحية",
           "Product Image": "صورة المنتج",
           "Add": "إضافة",
+          "Select Category": "اختر فئة المنتج",
+          "Add new category": "إضافة فئة جديدة",
+
+          // Edit product
+          "Product Edited Successfully !": "تم تعديل المنتج بنجاح !",
+          "Edit Product": "تعديل منتج",
+          "Edit": "تعديل",
+
+          // Add/Edit/Delete Category
+          "Category English Name": "اسم الفئة بالإنكليزية",
+          "Category Arabic Name": "اسم الفئة بالعربية",
+          "Add New Category": "إضافة فئة جديدة",
+          "Category Add Successfully": "تمت إضافة الفئة بنجاح !",
+          "Edit Category": "تعديل الفئة",
+          "Category Edited Successfully": "تم تعديل الفئة بنجاح !",
+          "Are you sure you want to delete the category with id":
+              "هل أنت متأكد أنك تريد حذف الفئة ذو المعرف",
+          "?": "؟",
+          "Category deleted successfully": "تم حذف الفئة بنجاح !",
         },
         "en": {
           //start
@@ -269,7 +291,7 @@ class AppLocale implements Translations {
               "Amoxil is a penicillin antibiotic, which is given to treat the infections caused by bacteria",
 
           // Orders
-          "All Orders":"All Orders",
+          "All Orders": "All Orders",
           "preparing": "Preparing",
           "delivering": "Delivering",
           "recieved": "Recieved",
@@ -284,8 +306,11 @@ class AppLocale implements Translations {
           "orderDetails": "Order Details",
           "Pharmacist Name": "Pharmacist Name :",
           "Pharmacy Name": "Pharmacy Name :",
-           "Change Order Status":"Change Order Status : ",
-          "Change Payment Statues":"Change Payment Statues : ",
+          "Change Order Status": "Change Order Status : ",
+          "Change Payment Statues": "Change Payment Statues : ",
+          "Order with id": "Order with id #",
+          "Paid Successfully": "paid Successfully !",
+          "Status changed Successfully": "status changed Successfully !",
 
           // User
           "statistics": "Statistics",
@@ -333,6 +358,25 @@ class AppLocale implements Translations {
           "Product Image": "Product Image",
           "Add": "Add",
           "Product Deleted Successfully !": "Product Deleted Successfully !",
+          "Select Category": "Select Category",
+          "Add new category": "Add new category",
+
+          // Edit Product
+          "Product Edited Successfully !": "Product Edited Successfully !",
+          "Edit Product": "Edit Product",
+          "Edit": "Edit",
+
+          // Add/Edit/Delete Category
+          "Category English Name": "Category English Name",
+          "Category Arabic Name": "Category Arabic Name",
+          "Add New Category": "Add New Category",
+          "Category Add Successfully": "Category Added Successfully !",
+          "Edit Category": "Edit Category",
+          "Category Edited Successfully": "Category Edited Successfully !",
+          "Are you sure you want to delete the category with id":
+              "Are you sure you want to delete the category with id",
+          "?": "?",
+          "Category deleted successfully": "Category deleted successfully !",
         },
       };
 }
