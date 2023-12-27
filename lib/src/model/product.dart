@@ -92,7 +92,8 @@ class Product {
       price: json['price'] as int,
       image: json['image'] as String,
       inStock: json['quantity'] as int,
-      isFavorite: json['isFavorite'] as bool,
+      isFavorite:
+          json['isFavorite'] != null ? json['isFavorite'] as bool : false,
     );
   }
 
