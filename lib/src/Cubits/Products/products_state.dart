@@ -50,3 +50,20 @@ final class ProductDeleteNetworkFailure extends ProductsState {
   String errorMessage;
   ProductDeleteNetworkFailure({required this.errorMessage});
 }
+
+final class WarehouseProductsFetchLoading extends ProductsState {}
+
+final class WarehouseProductsFetchSuccess extends ProductsState {
+ WarehouseProduct warehouseProduct;
+  WarehouseProductsFetchSuccess({required this.warehouseProduct});
+}
+
+final class WarehouseProductsFetchFailure extends ProductsState {
+  String errorMessage;
+  WarehouseProductsFetchFailure({required this.errorMessage});
+}
+
+final class WarehouseProductFetchNetworkFailure extends ProductsState {
+  String errorMessage;
+  WarehouseProductFetchNetworkFailure({required this.errorMessage});
+}

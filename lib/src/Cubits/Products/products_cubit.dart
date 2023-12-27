@@ -99,12 +99,16 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
   }
 
-  Future<void> addProduct({required WarehouseProduct warehouseProduct}) async {
+  Future<void> addProduct(
+      {required WarehouseProduct warehouseProduct, int? id}) async {
     try {
       emit(ProductAddLoading());
-
+      String endpoint = "";
+      if (id != null) {
+        endpoint = id.toString();
+      }
       await Api.request(
-        url: 'admin/medicines/',
+        url: 'admin/medicines/$endpoint',
         body: warehouseProduct.toJson(),
         token: User.token,
         methodType: MethodType.post,
@@ -112,11 +116,11 @@ class ProductsCubit extends Cubit<ProductsState> {
 
       emit(ProductAddSuccess());
     } on DioException catch (exception) {
-      logger.e("Product Cubit Add Method : \nNetwork Failure ");
+      logger.e("Product Cubit Add Warehouse Product : \nNetwork Failure ");
       emit(
           ProductAddNetworkFailure(errorMessage: exception.message.toString()));
     } catch (e) {
-      logger.e("Product Cubit Add Method : \nAdd Failure ");
+      logger.e("Product Cubit Add Warehouse Product : \nAdd Failure ");
       emit(ProductAddFailure(errorMessage: e.toString()));
     }
   }
@@ -140,6 +144,30 @@ class ProductsCubit extends Cubit<ProductsState> {
     } catch (e) {
       logger.e("Product Cubit Delete Method : \nDelete Failure ");
       emit(ProductDeleteFailure(errorMessage: e.toString()));
+    }
+  }
+
+  void getWarehouseProduct({required int id}) async {
+    try {
+      emit(WarehouseProductsFetchLoading());
+      Map<String, dynamic> warehouseProductJsonData = await Api.request(
+        url: 'admin/medicines/$id',
+        body: {},
+        token: User.token,
+        methodType: MethodType.get,
+      ) as Map<String, dynamic>;
+      WarehouseProduct warehouseProduct =
+          WarehouseProduct.fromJson(warehouseProductJsonData['medicine']);
+
+      emit(WarehouseProductsFetchSuccess(warehouseProduct: warehouseProduct));
+    } on DioException catch (exception) {
+      logger.e(
+          "Product Cubit Fetch Warehouse Product : \nNetwork Failure \n${exception.message}");
+      emit(WarehouseProductFetchNetworkFailure(
+          errorMessage: exception.message.toString()));
+    } catch (e) {
+      logger.e("Product Cubit Fetch Warehouse Product : \nFetch Failure \n$e");
+      emit(WarehouseProductsFetchFailure(errorMessage: e.toString()));
     }
   }
 }
