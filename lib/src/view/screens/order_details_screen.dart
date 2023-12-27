@@ -3,7 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:pharmacy_warehouse_store_web/main.dart';
 import 'package:pharmacy_warehouse_store_web/src/Cubits/Orders/change_order_status_cubit.dart';
 import 'package:pharmacy_warehouse_store_web/src/Cubits/Orders/make_order_payed_cubit.dart';
 
@@ -382,15 +381,17 @@ class _OrdersStatusCardsView extends StatelessWidget {
         } else if (state is ChangeOrderStatusSuccess) {
           Get.until((route) => !Get.isDialogOpen!);
           showSnackBar(
-              "Order with id #${order.id} status changed Successfully !".tr,
+              "${"Order with id".tr}${order.id} ${"Status changed Successfully".tr}",
               SnackBarMessageType.success);
           BlocProvider.of<OrdersCubit>(context).getOrder(id: order.id);
         } else if (state is ChangeOrderStatusNetworkFailure) {
           Get.until((route) => !Get.isDialogOpen!);
           showSnackBar(state.errorMessage, SnackBarMessageType.error);
+          BlocProvider.of<OrdersCubit>(context).getOrder(id: order.id);
         } else if (state is ChangeOrderStatusFailure) {
           Get.until((route) => !Get.isDialogOpen!);
           showSnackBar(state.errorMessage, SnackBarMessageType.error);
+          BlocProvider.of<OrdersCubit>(context).getOrder(id: order.id);
         }
       },
       child: Padding(
@@ -467,14 +468,14 @@ class _OrdersPaymentCardsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.f(order);
     return BlocListener<MakeOrderPayedCubit, MakeOrderPayedState>(
       listener: (context, state) {
         if (state is MakeOrderPayedLoading) {
           showLoadingDialog();
         } else if (state is MakeOrderPayedSuccess) {
           Get.until((route) => !Get.isDialogOpen!);
-          showSnackBar("Order with id #${order.id} Payed Successfully !".tr,
+          showSnackBar(
+              "${"Order with id".tr}${order.id} ${"Paid Successfully".tr}",
               SnackBarMessageType.success);
           BlocProvider.of<OrdersCubit>(context).getOrder(id: order.id);
         } else if (state is MakeOrderPayedNetworkFailure) {
