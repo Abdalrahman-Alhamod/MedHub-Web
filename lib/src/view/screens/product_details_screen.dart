@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_warehouse_store_web/src/Cubits/Products/products_cubit.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/helpers/show_custome_dialog.dart';
+import 'package:pharmacy_warehouse_store_web/src/view/screens/edit_product_details_screen.dart';
 
 import '../../../core/assets/app_vectors.dart';
 import '../../../core/constants/app_colors.dart';
@@ -21,6 +22,7 @@ class ProductDetailsScreen extends StatelessWidget {
   final Product product = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -138,12 +140,12 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // const SizedBox(
-            //   height: 10,
-            // ),
-            // _Buttons(
-            //   product: product,
-            // )
+            const SizedBox(
+              height: 10,
+            ),
+            _Buttons(
+              product: product,
+            )
           ],
         ),
       ),
@@ -188,7 +190,7 @@ class _Buttons extends StatelessWidget {
                     showCustomeDialog(
                         title: "Delete Product".tr,
                         content:
-                            "${"Are you sure you want to delete the product with id ".tr} #${product.id}",
+                            "${"Are you sure you want to delete the product with id ".tr}#${product.id} ${"?".tr}",
                         onConfirm: () {
                           BlocProvider.of<ProductsCubit>(context)
                               .deleteProduct(productId: product.id);
@@ -209,7 +211,13 @@ class _Buttons extends StatelessWidget {
               ),
               CustomeButton(
                 title: "Edit Information".tr,
-                onTap: () {},
+                onTap: () {
+                  Get.off(
+                    () => EditProductDetailsScreen(
+                      productID: product.id,
+                    ),
+                  );
+                },
                 width: 260,
                 height: 70,
                 icon: const Icon(
