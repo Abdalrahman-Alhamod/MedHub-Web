@@ -1,19 +1,22 @@
 import 'dart:convert';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'package:pharmacy_warehouse_store_web/core/assets/app_images.dart';
 import 'package:pharmacy_warehouse_store_web/core/constants/app_colors.dart';
-import 'package:pharmacy_warehouse_store_web/core/data/app_data.dart';
 import 'package:pharmacy_warehouse_store_web/src/Cubits/Products/products_cubit.dart';
 import 'package:pharmacy_warehouse_store_web/src/model/category.dart';
 import 'package:pharmacy_warehouse_store_web/src/model/product.dart';
 import 'package:pharmacy_warehouse_store_web/src/model/warehouse_product.dart';
+import 'package:pharmacy_warehouse_store_web/src/view/helpers/add_category_dialog.dart';
+import 'package:pharmacy_warehouse_store_web/src/view/helpers/delete_category_dialog.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/widgets/custome_button.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/widgets/custome_text_field.dart';
 
+import '../../../Cubits/Category/category_cubit.dart';
 import '../../helpers/show_loading_dialog.dart';
 import '../../helpers/show_snack_bar.dart';
 
@@ -42,7 +45,7 @@ class AddProductScreen extends StatelessWidget {
     var selectedDate = "".obs;
     dynamic image;
     var imageName = "".obs;
-    Category? category = AppData.categories[1];
+    Category? category;
     var selectedCategoryName = "".obs;
     Color selectedDateTextColor = Colors.grey;
     Color selectedImageTextColor = Colors.grey;
@@ -124,16 +127,11 @@ class AddProductScreen extends StatelessWidget {
       }
     }
 
-    selectCategory() {
-      selectedCategoryName.value = category.name;
-      selectedCategoryTextColor = Colors.grey;
-    }
-
     addProduct() {
       WarehouseProduct addedProduct = WarehouseProduct(
         product: Product(
           id: 0,
-          category: category,
+          category: category!,
           name: enName,
           scientificName: enScientificName,
           brand: enBrand,
@@ -190,6 +188,169 @@ class AddProductScreen extends StatelessWidget {
         check4 = true;
       }
       return check1 && check2 && check3 && check4;
+    }
+
+    void showSelectCategoryDialog() async {
+      await BlocProvider.of<CategoryCubit>(context).getCategories();
+
+      List<Category> categories =
+          // ignore: use_build_context_synchronously
+          BlocProvider.of<CategoryCubit>(context).currentCategories!;
+      Get.dialog(
+        Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(16.0),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10.0,
+                  offset: Offset(0.0, 10.0),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  "Select Category".tr,
+                  style: const TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 24.0),
+                SizedBox(
+                  height: 500,
+                  width: 400,
+                  child: ScrollConfiguration(
+                    // ignore: use_build_context_synchronously
+                    behavior: ScrollConfiguration.of(context).copyWith(
+                      dragDevices: {
+                        PointerDeviceKind.touch,
+                        PointerDeviceKind.mouse,
+                      },
+                    ),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            showAdd_EditCategoryDialog();
+                          },
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: Row(
+                              children: [
+                                const SizedBox(
+                                  width: 12,
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.add_circle,
+                                    color: AppColors.primaryColor,
+                                    size:
+                                        24, // Adjust the icon button size as needed
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ), // Add spacing between icon and text
+                                Text(
+                                  "Add new category".tr,
+                                  style: Get.theme.textTheme.titleLarge,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: categories.length,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: RadioListTile(
+                                      title: Text(
+                                        categories[index].name,
+                                        style: Get.theme.textTheme.titleLarge,
+                                      ),
+                                      value: categories[index].id,
+                                      groupValue: category?.id,
+                                      onChanged: (value) async {
+                                        Get.until(
+                                            (route) => !Get.isDialogOpen!);
+                                        category = categories[index];
+                                        selectedCategoryName.value =
+                                            category!.name;
+                                      },
+                                      fillColor: MaterialStateProperty.all(
+                                          Colors.lightBlueAccent),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                          onPressed: () async {
+                                            await BlocProvider.of<
+                                                    CategoryCubit>(context)
+                                                .getCategory(
+                                              id: categories[index].id,
+                                            );
+                                            Category? fetchedCategory =
+                                                // ignore: use_build_context_synchronously
+                                                BlocProvider.of<CategoryCubit>(
+                                                        context)
+                                                    .fetchedCategory;
+                                            showAdd_EditCategoryDialog(
+                                              editedCategory: fetchedCategory,
+                                            );
+                                          },
+                                          icon: const Icon(
+                                            Icons.edit_square,
+                                            color: AppColors.primaryColor,
+                                          )),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            showDeleteCateggoryDialog(
+                                                id: categories[index].id);
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ))
+                                    ],
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        barrierDismissible: true,
+      );
     }
 
     return BlocListener<ProductsCubit, ProductsState>(
@@ -484,7 +645,7 @@ class AddProductScreen extends StatelessWidget {
                                     children: [
                                       IconButton(
                                         onPressed: () {
-                                          selectCategory();
+                                          showSelectCategoryDialog();
                                         },
                                         icon: const Icon(
                                           Icons.category,
