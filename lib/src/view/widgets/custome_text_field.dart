@@ -7,21 +7,21 @@ import '../../Cubits/Products/products_cubit.dart';
 import '../helpers/search_by_dialog.dart';
 
 class CustomeTextField extends StatefulWidget {
-  const CustomeTextField({
-    super.key,
-    required this.hintText,
-    required this.onChanged,
-    required this.validator,
-    required this.prefixIcon,
-    this.keyboardType = TextInputType.text,
-    this.obscureText = false,
-    this.onTap,
-    this.onSubmit,
-    this.isSearchBar = false,
-    this.floatingLabelFontSize = 16,
-    this.maxLines = 1,
-    this.textDirection
-  });
+  const CustomeTextField(
+      {super.key,
+      required this.hintText,
+      required this.onChanged,
+      required this.validator,
+      required this.prefixIcon,
+      this.keyboardType = TextInputType.text,
+      this.obscureText = false,
+      this.onTap,
+      this.onSubmit,
+      this.isSearchBar = false,
+      this.floatingLabelFontSize = 16,
+      this.maxLines = 1,
+      this.textDirection,
+      this.content = ""});
   final bool obscureText;
   final String hintText;
   final void Function(String) onChanged;
@@ -34,6 +34,7 @@ class CustomeTextField extends StatefulWidget {
   final double floatingLabelFontSize;
   final int maxLines;
   final TextDirection? textDirection;
+  final String content;
 
   @override
   State<CustomeTextField> createState() => _CustomeTextFieldState();
@@ -46,6 +47,7 @@ class _CustomeTextFieldState extends State<CustomeTextField> {
   void initState() {
     _controller = TextEditingController();
     _enableObscureText = widget.obscureText;
+    _controller!.text = widget.content;
     if (widget.isSearchBar) {
       _controller!.text =
           BlocProvider.of<ProductsCubit>(context).searchBarContent;
