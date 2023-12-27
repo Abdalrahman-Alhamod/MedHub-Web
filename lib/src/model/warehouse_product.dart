@@ -27,6 +27,17 @@ class WarehouseProduct {
     return temp;
   }
 
+  factory WarehouseProduct.fromJson(json) {
+    return WarehouseProduct(
+      product: Product.fromJson(json),
+      arName: json['ar_name'],
+      arScientificName: json['ar_scientificName'],
+      arDescription: json['ar_description'],
+      arBrand: json['ar_brand'],
+      profit: json['profit'] as int,
+    );
+  }
+
   @override
   String toString() {
     return '''
