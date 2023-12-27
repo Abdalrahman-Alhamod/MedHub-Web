@@ -203,22 +203,22 @@ class _CategoriesCardsView extends StatelessWidget {
       width: double.infinity,
       child: BlocConsumer<CategoryCubit, CategoryState>(
         listener: (context, state) {
-          if (state is CategoryFetchFailure) {
+          if (state is CategoriesFetchFailure) {
             showSnackBar(state.errorMessage, SnackBarMessageType.error);
-          } else if (state is CategoryNetworkFailure) {
+          } else if (state is CategoriesNetworkFailure) {
             showSnackBar(state.errorMessage, SnackBarMessageType.error);
           }
         },
         builder: (context, state) {
-          if (state is CategoryFetchSuccess) {
+          if (state is CategoriesFetchSuccess) {
             return _CategoriesCardsViewSuccess(categories: state.categories);
-          } else if (state is CategoryFetchFailure) {
+          } else if (state is CategoriesFetchFailure) {
             return const ShowImage(
               imagePath: AppImages.error,
               height: 200,
               width: 200,
             );
-          } else if (state is CategoryNetworkFailure) {
+          } else if (state is CategoriesNetworkFailure) {
             return const ShowImage(
               imagePath: AppImages.error404,
               height: 200,

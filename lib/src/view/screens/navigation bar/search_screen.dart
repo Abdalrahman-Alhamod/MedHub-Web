@@ -192,14 +192,14 @@ class _CategoriesCardsViewState extends State<_CategoriesCardsView> {
       width: double.infinity,
       child: BlocConsumer<CategoryCubit, CategoryState>(
         listener: (context, state) {
-          if (state is CategoryFetchFailure) {
+          if (state is CategoriesFetchFailure) {
             showSnackBar(state.errorMessage, SnackBarMessageType.error);
-          } else if (state is CategoryNetworkFailure) {
+          } else if (state is CategoriesNetworkFailure) {
             showSnackBar(state.errorMessage, SnackBarMessageType.error);
           }
         },
         builder: (context, state) {
-          if (state is CategoryFetchSuccess) {
+          if (state is CategoriesFetchSuccess) {
             var categories = state.categories;
             return ScrollConfiguration(
               behavior: ScrollConfiguration.of(context).copyWith(
@@ -250,13 +250,13 @@ class _CategoriesCardsViewState extends State<_CategoriesCardsView> {
                 },
               ),
             );
-          } else if (state is CategoryFetchFailure) {
+          } else if (state is CategoriesFetchFailure) {
             return const ShowImage(
               imagePath: AppImages.error,
               height: 200,
               width: 200,
             );
-          } else if (state is CategoryNetworkFailure) {
+          } else if (state is CategoriesNetworkFailure) {
             return const ShowImage(
               imagePath: AppImages.error404,
               height: 200,
