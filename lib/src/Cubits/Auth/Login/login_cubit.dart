@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../main.dart';
 import '../../../model/user.dart';
 import '../../../services/api.dart';
+import '../../../services/firebase_api.dart';
 
 part 'login_state.dart';
 
@@ -14,6 +15,7 @@ class LoginCubit extends Cubit<LoginState> {
       {required String phoneNumber, required String password}) async {
     try {
       emit(LoginLoading());
+      await FirebaseApi().initNotifications();
       dynamic loginData = await Api.request(
         url: 'login',
         body: {
@@ -21,7 +23,7 @@ class LoginCubit extends Cubit<LoginState> {
           'password': password,
         },
         headers: {
-          'FCMToken': User.fCMToken!,
+          'FCMToken': User.fCMToken ?? "",
         },
         token: User.token,
         methodType: MethodType.post,

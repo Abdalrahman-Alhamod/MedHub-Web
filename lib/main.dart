@@ -22,7 +22,6 @@ import 'src/Cubits/User/user_cubit.dart';
 import 'src/Locale/local_controller.dart';
 import 'src/Locale/locale.dart';
 import 'src/routes/app_pages.dart';
-import 'src/services/firebase_api.dart';
 import 'src/services/simple_bloc_observer.dart';
 import 'src/view/screens/start/splash_screen.dart';
 
@@ -30,7 +29,6 @@ Logger logger = Logger(printer: PrettyPrinter(printEmojis: false));
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
-  await FirebaseApi().initNotifications();
   get_lib.Get.put(AppLocalController());
   Bloc.observer = SimpleBlocObserver();
   return runApp(const MedHubWeb());
