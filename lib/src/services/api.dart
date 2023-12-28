@@ -15,14 +15,15 @@ class MethodType {
 
 class Api {
   const Api._();
-  static const String baseUrl = 'http://192.168.43.98:8000/';
+  static const String baseUrl = 'http://127.0.0.1:8000/';
 
   static Future<dynamic> request(
       {required String url,
       @required dynamic body,
       @required String? token,
       required String methodType,
-      Map<String, String> headers = const {}}) async {
+      Map<String, String> headers = const {},
+      dynamic image}) async {
     Map<String, String> requestHeaders = {};
 
     requestHeaders.addAll(
@@ -35,10 +36,17 @@ class Api {
 
     final dio = Dio();
     try {
-      //       FormData formData = FormData.fromMap(body.cast<String, dynamic>());
+      FormData formData = FormData.fromMap(body.cast<String, dynamic>());
+
+      if (image != null && image != "") {
+        formData.files.add(MapEntry<String, MultipartFile>('image', image));
+      } else if (image != null) {
+        formData.fields.add(MapEntry<String, String>('image', image));
+      }
+
       Response response = await dio.request(
         baseUrl + url,
-        data: body,
+        data: formData,
         options: Options(
           headers: requestHeaders,
           method: methodType,

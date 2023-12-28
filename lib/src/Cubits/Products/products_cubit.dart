@@ -112,6 +112,7 @@ class ProductsCubit extends Cubit<ProductsState> {
         body: warehouseProduct.toJson(),
         token: User.token,
         methodType: MethodType.post,
+        image: warehouseProduct.product.image,
       ) as Map<String, dynamic>;
 
       emit(ProductAddSuccess());

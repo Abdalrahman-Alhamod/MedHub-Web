@@ -76,7 +76,6 @@ class Product {
       'expirationDate': expirationDate,
       'price': price,
       'quantity': inStock,
-      'image': image,
     };
   }
 

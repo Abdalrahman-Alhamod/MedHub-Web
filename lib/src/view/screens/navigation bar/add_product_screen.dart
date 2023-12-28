@@ -1,10 +1,9 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:image_picker_web/image_picker_web.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pharmacy_warehouse_store_web/core/assets/app_images.dart';
 import 'package:pharmacy_warehouse_store_web/core/constants/app_colors.dart';
 import 'package:pharmacy_warehouse_store_web/src/Cubits/Products/products_cubit.dart';
@@ -92,22 +91,27 @@ class AddProductScreen extends StatelessWidget {
     }
 
     Future<void> selectImage() async {
-      // FilePickerResult? result = await FilePicker.platform.pickFiles(
-      //   type: FileType.custom,
-      //   allowedExtensions: ['png'],
-      // );
-      // if (result != null) {
-      //   var picked = result.files.single.bytes;
-      //   imageName.value = result.files.single.name;
-      //   image = dio.MultipartFile.fromBytes(picked as List<int>,
-      //       contentType: MediaType('application', 'form-data'));
-      //   //image = base64Encode(picked as List<int>);
-      //   selectedImageTextColor = Colors.grey;
-      // } else {}
+      final ImagePicker picker = ImagePicker();
 
-      final imageBytes = await ImagePickerWeb.getImageAsBytes();
-      if (imageBytes != null) {
-        image = base64Encode(imageBytes);
+      final XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
+
+      if (xFile != null) {
+        final imageBytes = await xFile.readAsBytes();
+
+        final imageFile = PickedFile(xFile.path);
+
+        final stream = imageFile.openRead();
+
+        final length = imageBytes.length;
+
+        final fileName = imageFile.path.split('/').last;
+
+        image = dio.MultipartFile.fromStream(
+          () => stream,
+          length,
+          filename: fileName,
+        );
+        imageName.value = fileName;
       }
     }
 
