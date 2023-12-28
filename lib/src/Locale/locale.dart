@@ -188,7 +188,7 @@ class AppLocale implements Translations {
           "Edit Category": "تعديل الفئة",
           "Category Edited Successfully": "تم تعديل الفئة بنجاح !",
           "Are you sure you want to delete the category with id":
-              "هل أنت متأكد أنك تريد حذف الفئة ذو المعرف",
+              "هل أنت متأكد أنك تريد حذف الفئة ذات المعرف",
           "?": "؟",
           "Category deleted successfully": "تم حذف الفئة بنجاح !",
         },
