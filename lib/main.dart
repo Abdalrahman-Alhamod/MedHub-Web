@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart' as get_lib;
 import 'package:logger/logger.dart';
 import 'package:pharmacy_warehouse_store_web/firebase_options.dart';
+import 'package:pharmacy_warehouse_store_web/src/Cubits/Report/report_cubit.dart';
 import 'core/constants/app_general_constants.dart';
 import 'core/constants/app_theme.dart';
 import 'src/Cubits/Auth/Login/login_cubit.dart';
@@ -79,6 +80,9 @@ class MedHubWeb extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ChangeOrderStatusCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ReportCubit(),
         ),
       ],
       child: get_lib.GetMaterialApp(
