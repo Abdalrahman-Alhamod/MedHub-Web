@@ -17,19 +17,20 @@ class Api {
   const Api._();
   static const String baseUrl = 'http://127.0.0.1:8000/';
 
-  static Future<dynamic> request(
-      {required String url,
-      @required dynamic body,
-      @required String? token,
-      required String methodType,
-      Map<String, String> headers = const {},
-      dynamic image}) async {
+  static Future<dynamic> request({
+    required String url,
+    @required dynamic body,
+    @required String? token,
+    required String methodType,
+    Map<String, String> headers = const {},
+    dynamic image,
+    String? lang,
+  }) async {
     Map<String, String> requestHeaders = {};
-
     requestHeaders.addAll(
       {
         'token': token ?? "",
-        'lang': get_lib.Get.locale.toString(),
+        'lang': lang ?? get_lib.Get.locale.toString(),
       },
     );
     requestHeaders.addAll(headers);
@@ -52,10 +53,8 @@ class Api {
           method: methodType,
         ),
       );
-      var jsonData = jsonDecode(
-        response.toString(),
-      );
-      return jsonData;
+
+      return response.data;
     } on DioException catch (exception) {
       logger.e("API Dio Exception : $exception");
       logger.e("${exception.response}");
