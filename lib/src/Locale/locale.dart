@@ -191,6 +191,13 @@ class AppLocale implements Translations {
               "هل أنت متأكد أنك تريد حذف الفئة ذات المعرف",
           "?": "؟",
           "Category deleted successfully": "تم حذف الفئة بنجاح !",
+
+          // Report
+          "Report exported Successfully": "تم تصدير التقرير بنجاح !",
+          "Export Report as PDF": "تصدير التقرير كملف PDF : ",
+          "Start Date": "تاريخ البداية : ",
+          "End Date": "تاريخ النهاية : ",
+          "Export": "تصدير",
         },
         "en": {
           //start
@@ -377,6 +384,13 @@ class AppLocale implements Translations {
               "Are you sure you want to delete the category with id",
           "?": "?",
           "Category deleted successfully": "Category deleted successfully !",
+
+          // Report
+          "Report exported Successfully": "Report exported Successfully !",
+          "Export Report as PDF": "Export Report as PDF : ",
+          "Start Date": "Start Date : ",
+          "End Date": "End Date : ",
+          "Export": "Export",
         },
       };
 }
