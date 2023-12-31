@@ -1,13 +1,12 @@
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../src/model/category.dart';
 import '../../src/model/product.dart';
 import '../assets/app_products_images.dart';
 
 class Products {
-  static final _format = DateFormat('yyyy/MM/dd', Intl.getCurrentLocale());
-  static final _date = _format.format(DateTime.now()).toString();
+
+  static final _date =DateTime.now().toString();
   // ignore: non_constant_identifier_names
   static Product Amoxil = Product(
     id: 0,
