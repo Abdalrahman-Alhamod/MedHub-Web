@@ -223,24 +223,27 @@ class _CategoriesCardsViewState extends State<_CategoriesCardsView> {
                         },
                       );
                     },
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 8),
-                      decoration: BoxDecoration(
-                        color: index == selectedIndex
-                            ? AppColors.primaryColor
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: AppColors.primaryColor),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Center(
-                          child: Text(
-                            categories[index].name,
-                            style: theme.textTheme.titleMedium!.copyWith(
-                              color: index == selectedIndex
-                                  ? Colors.white
-                                  : AppColors.primaryColor,
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Container(
+                        margin: const EdgeInsets.only(right: 8),
+                        decoration: BoxDecoration(
+                          color: index == selectedIndex
+                              ? AppColors.primaryColor
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: AppColors.primaryColor),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Center(
+                            child: Text(
+                              categories[index].name,
+                              style: theme.textTheme.titleMedium!.copyWith(
+                                color: index == selectedIndex
+                                    ? Colors.white
+                                    : AppColors.primaryColor,
+                              ),
                             ),
                           ),
                         ),
