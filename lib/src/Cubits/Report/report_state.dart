@@ -7,8 +7,6 @@ final class ReportInitial extends ReportState {}
 final class ReportFetchLoading extends ReportState {}
 
 final class ReportFetchSuccess extends ReportState {
-  String pdfLink;
-  ReportFetchSuccess({required this.pdfLink});
 }
 
 final class ReportFetchFailure extends ReportState {

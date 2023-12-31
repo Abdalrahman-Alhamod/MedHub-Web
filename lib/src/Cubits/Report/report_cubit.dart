@@ -21,7 +21,8 @@ class ReportCubit extends Cubit<ReportState> {
         methodType: MethodType.get,
         lang: 'en',
       ) as Map<String, dynamic>;
-      emit(ReportFetchSuccess(pdfLink: reportJsonData['file']));
+        await Dio().get(reportJsonData['file']);
+      emit(ReportFetchSuccess());
     } on DioException catch (exception) {
       logger.e("Report Cubit : \nNetwork Failure \n${exception.message}");
       emit(ReportFetchNetworkFailure(
