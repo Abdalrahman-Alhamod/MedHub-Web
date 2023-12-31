@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:pharmacy_warehouse_store_web/core/assets/app_images.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20bar/statistics_screen.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20bar/add_product_screen.dart';
-import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20bar/report_view.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/widgets/show_image.dart';
 
 import '../../../../core/constants/app_colors.dart';

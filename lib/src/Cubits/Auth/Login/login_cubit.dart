@@ -15,7 +15,7 @@ class LoginCubit extends Cubit<LoginState> {
       {required String phoneNumber, required String password}) async {
     try {
       emit(LoginLoading());
-      //await FirebaseApi().initNotifications();
+      await FirebaseApi().initNotifications();
       dynamic loginData = await Api.request(
         url: 'login',
         body: {
