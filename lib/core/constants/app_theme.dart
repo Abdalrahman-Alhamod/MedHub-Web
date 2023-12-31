@@ -11,7 +11,6 @@ final ThemeData appTheme = ThemeData(
     secondary: AppColors.secondaryColor,
     onError: Colors.grey.shade800,
   ),
-  //buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
   hintColor: AppColors.secondaryColor,
   scaffoldBackgroundColor: AppColors.backgroundColor,
   textTheme: const TextTheme(

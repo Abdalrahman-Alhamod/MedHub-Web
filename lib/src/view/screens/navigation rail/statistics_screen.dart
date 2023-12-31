@@ -129,7 +129,7 @@ class _StatisticsSuccessView extends StatelessWidget {
                   ),
                   Flexible(
                     flex: 20,
-                    child: _buildColoredBoxListView(
+                    child: _buildChartsColoredBoxes(
                       data: statisticsData.purchasedCategoriesPercentages,
                     ),
                   ),
@@ -152,7 +152,7 @@ class _StatisticsSuccessView extends StatelessWidget {
                   ),
                   Flexible(
                     flex: 20,
-                    child: _buildColoredBoxListView(
+                    child: _buildChartsColoredBoxes(
                       data: statisticsData.inStockCategoriesPercentages,
                     ),
                   ),
@@ -322,7 +322,7 @@ class _DataCardView extends StatelessWidget {
   }
 }
 
-Widget _buildColoredBoxListView({required Map<String, dynamic> data}) {
+Widget _buildChartsColoredBoxes({required Map<String, dynamic> data}) {
   return SizedBox(
     height: 400,
     child: GridView.builder(
@@ -494,7 +494,7 @@ class _LineChart extends StatelessWidget {
                 onPressed: () async {
                   if (chartType == ChartType.week) {
                     final DateTime? picked = await showMonthYearPicker(
-                      context: Get.context!,
+                      context: context,
                       initialDate: _monthChartsDate,
                       firstDate: DateTime(2023),
                       lastDate: DateTime.now(),
@@ -511,7 +511,7 @@ class _LineChart extends StatelessWidget {
                     }
                   } else {
                     final DateTime? picked = await showMonthYearPicker(
-                      context: Get.context!,
+                      context: context,
                       initialDate: _yearChartsDate,
                       firstDate: DateTime(2023),
                       lastDate: DateTime.now(),
