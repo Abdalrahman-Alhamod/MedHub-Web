@@ -21,7 +21,6 @@ import 'src/Cubits/Products/products_cubit.dart';
 import 'src/Cubits/Statistics/statistics_cubit.dart';
 import 'src/Locale/local_controller.dart';
 import 'src/Locale/locale.dart';
-import 'src/routes/app_pages.dart';
 import 'src/services/simple_bloc_observer.dart';
 import 'src/view/screens/start/splash_screen.dart';
 
