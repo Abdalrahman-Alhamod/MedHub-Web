@@ -5,16 +5,10 @@ import 'package:get/get.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../model/product.dart';
 import '../screens/product_details_screen.dart';
-import 'cart_quantity_counter.dart';
 
 class ProductListTile extends StatelessWidget {
-  const ProductListTile(
-      {super.key,
-      required this.product,
-      this.isCartProduct = false,
-      this.quantity = 0});
+  const ProductListTile({super.key, required this.product, this.quantity = 0});
   final Product product;
-  final bool isCartProduct;
   final int quantity;
   @override
   Widget build(BuildContext context) {
@@ -22,7 +16,7 @@ class ProductListTile extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        if (!isCartProduct && quantity == 0) {
+        if (quantity == 0) {
           Get.off(() => ProductDetailsScreen(), arguments: product);
         }
       },
@@ -101,45 +95,33 @@ class ProductListTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      isCartProduct
+                      quantity != 0
                           ? Column(
                               children: [
                                 SizedBox(
                                   width: 130,
-                                  child: CartQuantityCounter(product: product),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        '$quantity ${"pc".tr}',
+                                        style: theme.textTheme.titleLarge!
+                                            .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: theme.primaryColor,
+                                        ),
+                                        maxLines: 1,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 15,
                                 ),
                               ],
                             )
-                          : quantity != 0
-                              ? Column(
-                                  children: [
-                                    SizedBox(
-                                      width: 130,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            '$quantity ${"pc".tr}',
-                                            style: theme.textTheme.titleLarge!
-                                                .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: theme.primaryColor,
-                                            ),
-                                            maxLines: 1,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                  ],
-                                )
-                              : const SizedBox(),
+                          : const SizedBox(),
                       SizedBox(
                         width: 130,
                         child: AutoSizeText(
