@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_warehouse_store_web/core/assets/app_images.dart';
-import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20bar/statistics_screen.dart';
-import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20bar/add_product_screen.dart';
+import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20rail/statistics_screen.dart';
+import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20rail/add_product_screen.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/widgets/show_image.dart';
 
 import '../../../../core/constants/app_colors.dart';
@@ -14,14 +14,14 @@ import '../../helpers/show_loading_dialog.dart';
 import '../../helpers/show_snack_bar.dart';
 import '../auth/login_screen.dart';
 import 'orders_screen.dart';
-import 'products_list_screen.dart';
+import 'home_screen.dart';
 import 'search_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   static List<Widget> screen = [
-    const ProductsListScreen(),
+    const HomeScreen(),
     const SearchScreen(),
     const AddProductScreen(),
     const OrdersScreen(),
@@ -29,10 +29,10 @@ class HomeScreen extends StatefulWidget {
   ];
 
   @override
-  HomeScreenState createState() => HomeScreenState();
+  HomeState createState() => HomeState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LogoutCubit, LogoutState>(
@@ -56,7 +56,7 @@ class HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: Scaffold(
                   body: SizedBox.expand(
-                    child: HomeScreen.screen[
+                    child: Home.screen[
                         BlocProvider.of<BottomNavBarCubit>(context).index],
                   ),
                   //  bottomNavigationBar: const _CustomeNavigationBar(),

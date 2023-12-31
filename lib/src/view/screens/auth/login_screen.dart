@@ -12,7 +12,7 @@ import '../../helpers/show_loading_dialog.dart';
 import '../../helpers/show_snack_bar.dart';
 import '../../widgets/custome_button.dart';
 import '../../widgets/custome_text_field.dart';
-import '../navigation bar/home_screen.dart';
+import '../navigation rail/home.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
@@ -62,7 +62,7 @@ class LoginScreen extends StatelessWidget {
         } else if (state is LoginSuccess) {
           Get.until((route) => !Get.isDialogOpen!);
           showSnackBar("signedInSuccess".tr, SnackBarMessageType.success);
-          Get.off(() => const HomeScreen());
+          Get.off(() => const Home());
         } else if (state is LoginFailure) {
           Get.until((route) => !Get.isDialogOpen!);
           showSnackBar(state.errorMessage, SnackBarMessageType.error);

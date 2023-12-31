@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:month_year_picker/month_year_picker.dart';
 import 'package:pharmacy_warehouse_store_web/src/model/statistics_data.dart';
-import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20bar/report_view.dart';
+import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20rail/report_view.dart';
 
 import '../../../../core/assets/app_images.dart';
 import '../../../../core/constants/app_colors.dart';

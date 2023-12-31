@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../model/product.dart';
-import '../screens/product_details_screen.dart';
+import '../screens/details/product_details_screen.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.product});

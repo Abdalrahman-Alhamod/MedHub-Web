@@ -5,24 +5,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_warehouse_store_web/src/Cubits/Products/products_cubit.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/helpers/show_custome_dialog.dart';
-import 'package:pharmacy_warehouse_store_web/src/view/screens/edit_product_details_screen.dart';
+import 'package:pharmacy_warehouse_store_web/src/view/screens/details/edit_product_details_screen.dart';
 
-import '../../../core/assets/app_vectors.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../model/product.dart';
-import '../helpers/show_loading_dialog.dart';
-import '../helpers/show_snack_bar.dart';
-import '../widgets/custome_button.dart';
-import '../widgets/custome_card.dart';
-import '../widgets/custome_icon_button.dart';
-import 'navigation bar/home_screen.dart';
+import '../../../../core/assets/app_vectors.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../model/product.dart';
+import '../../helpers/show_loading_dialog.dart';
+import '../../helpers/show_snack_bar.dart';
+import '../../widgets/custome_button.dart';
+import '../../widgets/custome_card.dart';
+import '../../widgets/custome_icon_button.dart';
+import '../navigation rail/home.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   ProductDetailsScreen({super.key});
   final Product product = Get.arguments;
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -175,7 +174,7 @@ class _Buttons extends StatelessWidget {
                     Get.until((route) => !Get.isDialogOpen!);
                     showSnackBar("Product Deleted Successfully !".tr,
                         SnackBarMessageType.success);
-                    Get.off(() => const HomeScreen());
+                    Get.off(() => const Home());
                   } else if (state is ProductDeleteNetworkFailure) {
                     Get.until((route) => !Get.isDialogOpen!);
                     showSnackBar(state.errorMessage, SnackBarMessageType.error);
@@ -350,7 +349,7 @@ class _AppBar extends StatelessWidget {
           width: 65,
           child: CustomIconButton(
             onPressed: () {
-              Get.off(() => const HomeScreen());
+              Get.off(() => const Home());
             },
             icon: SvgPicture.asset(
               AppVector.backArrowIcon,

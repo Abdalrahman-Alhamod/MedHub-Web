@@ -10,16 +10,16 @@ import 'package:pharmacy_warehouse_store_web/src/Cubits/Products/products_cubit.
 import 'package:pharmacy_warehouse_store_web/src/model/category.dart';
 import 'package:pharmacy_warehouse_store_web/src/model/product.dart';
 import 'package:pharmacy_warehouse_store_web/src/model/warehouse_product.dart';
-import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20bar/home_screen.dart';
+import 'package:pharmacy_warehouse_store_web/src/view/screens/navigation%20rail/home.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/widgets/custome_button.dart';
 import 'package:pharmacy_warehouse_store_web/src/view/widgets/custome_text_field.dart';
 
-import '../../Cubits/Category/category_cubit.dart';
-import '../helpers/add_category_dialog.dart';
-import '../helpers/delete_category_dialog.dart';
-import '../helpers/show_loading_dialog.dart';
-import '../helpers/show_snack_bar.dart';
-import '../widgets/show_image.dart';
+import '../../../Cubits/Category/category_cubit.dart';
+import '../../helpers/add_category_dialog.dart';
+import '../../helpers/delete_category_dialog.dart';
+import '../../helpers/show_loading_dialog.dart';
+import '../../helpers/show_snack_bar.dart';
+import '../../widgets/show_image.dart';
 
 class EditProductDetailsScreen extends StatelessWidget {
   const EditProductDetailsScreen({
@@ -380,7 +380,7 @@ class EditProductDetailsScreen extends StatelessWidget {
           Get.until((route) => !Get.isDialogOpen!);
           showSnackBar(
               "Product Edited Successfully !".tr, SnackBarMessageType.success);
-          Get.off(() => const HomeScreen());
+          Get.off(() => const Home());
         } else if (state is ProductAddFailure) {
           Get.until((route) => !Get.isDialogOpen!);
           showSnackBar(state.errorMessage, SnackBarMessageType.error);
@@ -400,7 +400,7 @@ class EditProductDetailsScreen extends StatelessWidget {
           centerTitle: true,
           leading: IconButton(
               onPressed: () {
-                Get.off(() => const HomeScreen());
+                Get.off(() => const Home());
               },
               icon: const Icon(Icons.arrow_back)),
         ),

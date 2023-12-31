@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../core/assets/app_images.dart';
 import '../../model/order.dart';
-import '../screens/order_details_screen.dart';
+import '../screens/details/order_details_screen.dart';
 import 'order_spec_text.dart';
 import 'order_status_text.dart';
 

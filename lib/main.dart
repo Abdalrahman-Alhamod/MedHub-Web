@@ -27,8 +27,8 @@ import 'src/view/screens/start/splash_screen.dart';
 
 Logger logger = Logger(printer: PrettyPrinter(printEmojis: false));
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
   get_lib.Get.put(AppLocalController());
   Bloc.observer = SimpleBlocObserver();
   return runApp(const MedHubWeb());
@@ -83,7 +83,6 @@ class MedHubWeb extends StatelessWidget {
         transitionDuration: const Duration(seconds: 1),
         translations: AppLocale(),
         locale: const Locale('en'),
-        routes: AppPages.routes,
         home: const SplashScreen(),
         localizationsDelegates: const [
           GlobalMaterialLocalizations

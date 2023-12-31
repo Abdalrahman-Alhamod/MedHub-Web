@@ -16,8 +16,8 @@ import '../../widgets/custome_text_field.dart';
 import '../../widgets/product_card.dart';
 import '../../widgets/show_image.dart';
 
-class ProductsListScreen extends StatelessWidget {
-  const ProductsListScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

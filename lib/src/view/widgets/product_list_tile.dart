@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../model/product.dart';
-import '../screens/product_details_screen.dart';
+import '../screens/details/product_details_screen.dart';
 
 class ProductListTile extends StatelessWidget {
   const ProductListTile({super.key, required this.product, this.quantity = 0});

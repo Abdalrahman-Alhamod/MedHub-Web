@@ -6,18 +6,18 @@ import 'package:get/get.dart';
 import 'package:pharmacy_warehouse_store_web/src/Cubits/Orders/change_order_status_cubit.dart';
 import 'package:pharmacy_warehouse_store_web/src/Cubits/Orders/make_order_payed_cubit.dart';
 
-import '../../../core/assets/app_images.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../Cubits/Orders/orders_cubit.dart';
-import '../../model/order.dart';
-import '../helpers/show_loading_dialog.dart';
-import '../helpers/show_snack_bar.dart';
-import '../widgets/order_spec_text.dart';
-import '../widgets/order_status_text.dart';
-import '../widgets/order_type_card.dart';
-import '../widgets/product_list_tile.dart';
-import '../widgets/show_image.dart';
-import 'navigation bar/home_screen.dart';
+import '../../../../core/assets/app_images.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../Cubits/Orders/orders_cubit.dart';
+import '../../../model/order.dart';
+import '../../helpers/show_loading_dialog.dart';
+import '../../helpers/show_snack_bar.dart';
+import '../../widgets/order_spec_text.dart';
+import '../../widgets/order_status_text.dart';
+import '../../widgets/order_type_card.dart';
+import '../../widgets/product_list_tile.dart';
+import '../../widgets/show_image.dart';
+import '../navigation rail/home.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   const OrderDetailsScreen({super.key});
@@ -36,7 +36,7 @@ class OrderDetailsScreen extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
-              Get.off(() => const HomeScreen());
+              Get.off(() => const Home());
             },
             icon: const Icon(Icons.arrow_back)),
       ),
