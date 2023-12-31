@@ -140,12 +140,21 @@ class AppLocale implements Translations {
 
           // Statitics
           "Data Highlights": "أبرز البيانات",
-          "Orders": "الطلبات",
-          "Total Paid": "مجموع المبالغ المدفوعة",
-          "Medicines": "الأدوية",
-          "Favorites": "المفضلة",
           "Top Purchased Categories": "أهم الفئات التي تم شراؤها",
-          "Weekly Expense": "المصروف الأسبوعي",
+          "Top In Stock Categories": "الفئات الأعلى في المخزون",
+          "Weekly Income": "الدخل اسبوعي",
+          "Monthly Income": "الدخل الشهري",
+          "Total Income": "إجمالي الدخل",
+          "Total Users": "إجمالي المستخدمين",
+          "Total Orders": "إجمالي الطلبات",
+          "In Preparation Orders": "الطلبات قيد التحضير",
+          "Getting Delivered Orders": "الطلبات قيد االتوصيل",
+          "Delivered Orders": "الطلبات المستلمة",
+          "Refused Orders": "الطلبات المرفوضة",
+          "Total Sold Medicines": "إجمالي الأدوية المباعة",
+          "In Stock Medicines": "عدد الأدوية في المخزون",
+          "Total Medicines Quantity": "إجمالي كمية الأدوية",
+          "Selecte Date": "اختر تاريخاً : ",
 
           // Add product
           "Value must be greate than zero":
@@ -332,14 +341,24 @@ class AppLocale implements Translations {
           "name": "Name",
           "scientificName": "Scientific Name",
           "description": "Description",
+
           // Statitics
           "Data Highlights": "Data Highlights",
-          "Orders": "Orders",
-          "Total Paid": "Total Paid",
-          "Medicines": "Medicines",
-          "Favorites": "Favorites",
           "Top Purchased Categories": "Top Purchased Categories",
-          "Weekly Expense": "Weekly Expense",
+          "Top In Stock Categories": "Top In Stock Categories",
+          "Weekly Income": "Weekly Income",
+          "Monthly Income": "Monthly Income",
+          "Total Income": "Total Income",
+          "Total Users": "Total Users",
+          "Total Orders": "Total Orders",
+          "In Preparation Orders": "Preparing Order",
+          "Getting Delivered Orders": "Delivering Orders",
+          "Delivered Orders": "Recieved Orders",
+          "Refused Orders": "Refused Orders",
+          "Total Sold Medicines": "Total Sold Medicines",
+          "In Stock Medicines": "In Stock Medicines",
+          "Total Medicines Quantity": "Total Medicines Quantity",
+          "Selecte Date": "Selecte Date : ",
 
           // Add product
           "Value must be greate than zero": "Value must be greate than zero",
